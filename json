@@ -1,0 +1,212 @@
+{
+"widgets": [
+{
+    "request": {
+        "time": "2020-06-29 2021-06-29",
+        "resolution": "WEEK",
+        "locale": "fr",
+        "comparisonItem": [
+            {
+                "geo": {
+                    "country": "FR"
+                },
+                "complexKeywordsRestriction": {
+                    "keyword": [
+                        {
+                            "type": "BROAD",
+                            "value": "baguette"
+                        }
+                    ]
+                }
+            }
+        ],
+        "requestOptions": {
+            "property": "",
+            "backend": "IZG",
+            "category": 0
+        }
+    },
+    "lineAnnotationText": "Intérêt de recherche",
+    "bullets": [
+        {
+            "text": "baguette"
+        }
+    ],
+    "showLegend": false,
+    "showAverages": false,
+    "helpDialog": {
+        "title": "Évolution de l'intérêt pour cette recherche",
+        "content": "Les résultats reflètent la proportion de recherches portant sur un mot clé donné dans une région et pour une période spécifiques, par rapport à la région où le taux d'utilisation de ce mot clé est le plus élevé (valeur de 100). Ainsi, une valeur de 50 signifie que le mot clé a été utilisé moitié moins souvent dans la région concernée, et une valeur de 0 signifie que les données pour ce mot clé sont insuffisantes."
+    },
+    "token": "APP6_UEAAAAAYNyUBp6oSKWbdItVQWGxvYfq2-v0ZnbF",
+    "id": "TIMESERIES",
+    "type": "fe_line_chart",
+    "title": "Évolution de l'intérêt pour cette recherche",
+    "template": "fe",
+    "embedTemplate": "fe_embed",
+    "version": "1",
+    "isLong": true,
+    "isCurated": false
+},
+{
+    "request": {
+        "geo": {
+            "country": "FR"
+        },
+        "comparisonItem": [
+            {
+                "time": "2020-06-29 2021-06-29",
+                "complexKeywordsRestriction": {
+                    "keyword": [
+                        {
+                            "type": "BROAD",
+                            "value": "baguette"
+                        }
+                    ]
+                }
+            }
+        ],
+        "resolution": "REGION",
+        "locale": "fr",
+        "requestOptions": {
+            "property": "",
+            "backend": "IZG",
+            "category": 0
+        }
+    },
+    "geo": "FR",
+    "resolution": "provinces",
+    "searchInterestLabel": "Intérêt de recherche",
+    "displayMode": "regions",
+    "helpDialog": {
+        "title": "Recherches par région",
+        "content": "Découvrez dans quelle région du monde votre mot clé a été le plus utilisé pendant la période définie. Les résultats vont de 0 à 100, où 100 correspond à la région ayant enregistré le plus fort pourcentage d'utilisation de ce mot clé par rapport au nombre total de recherches locales. Une valeur de 50 signifie que le mot clé a été utilisé moitié moins souvent dans la région concernée, et une valeur de 0 correspond à une région n'ayant pas enregistré assez de données pour ce mot clé. <p><p> <b>Remarque</b> : Une valeur supérieure signifie que la proportion d'utilisation de ce mot clé par rapport au nombre total de requêtes de recherche est plus élevée. Cela ne veut pas dire que le nombre d'occurrences du mot clé dans les requêtes de recherche est plus important. Ainsi, un petit pays où 80 % des requêtes portent sur le mot clé \"bananes\" obtiendra un résultat deux fois plus élevé que celui d'un grand pays où seulement 40 % des requêtes portent sur le mot clé \"bananes\".",
+        "url": "https://support.google.com/trends/answer/4355212"
+    },
+    "color": "PALETTE_COLOR_1",
+    "index": 0,
+    "bullet": "baguette",
+    "token": "APP6_UEAAAAAYNyUBmUNUTSptMj4kbn-NG5VutEAwmac",
+    "id": "GEO_MAP",
+    "type": "fe_geo_chart_explore",
+    "title": "Recherches par région",
+    "template": "fe",
+    "embedTemplate": "fe_embed",
+    "version": "1",
+    "isLong": true,
+    "isCurated": false
+},
+{
+    "request": {
+        "restriction": {
+            "geo": {
+                "country": "FR"
+            },
+            "time": "2020-06-29 2021-06-29",
+            "originalTimeRangeForExploreUrl": "today 12-m",
+            "complexKeywordsRestriction": {
+                "keyword": [
+                    {
+                        "type": "BROAD",
+                        "value": "baguette"
+                    }
+                ]
+            }
+        },
+        "keywordType": "ENTITY",
+        "metric": [
+            "TOP",
+            "RISING"
+        ],
+        "trendinessSettings": {
+            "compareTime": "2019-06-29 2020-06-28"
+        },
+        "requestOptions": {
+            "property": "",
+            "backend": "IZG",
+            "category": 0
+        },
+        "language": "fr",
+        "userCountryCode": "US"
+    },
+    "helpDialog": {
+        "title": "Sujets associés",
+        "content": "Les utilisateurs ayant recherché le même terme que vous ont également effectué une recherche sur ces sujets. Vous pouvez trier les résultats en fonction des statistiques suivantes : <p>* <b>Les plus fréquents</b> : sujets les plus populaires. Les évaluations se font sur une échelle relative. 100 correspond au sujet le plus souvent recherché, 50 à un sujet recherché moitié moins souvent, etc. <p>* <b>En progression</b> : sujets associés ayant enregistré la plus forte progression en termes de fréquence de recherche, au cours de la période indiquée. La valeur \"Record\" désigne les résultats ayant une progression fulgurante, sans doute parce que ces sujets sont nouveaux et ont enregistré peu de recherches par le passé (voire aucune)."
+    },
+    "color": "PALETTE_COLOR_1",
+    "keywordName": "baguette",
+    "token": "APP6_UEAAAAAYNyUBoVzAlbJYAKEHS9s5fmLuDH3xcYo",
+    "id": "RELATED_TOPICS",
+    "type": "fe_related_searches",
+    "title": "Sujets associés",
+    "template": "fe",
+    "embedTemplate": "fe_embed",
+    "version": "1",
+    "isLong": false,
+    "isCurated": false
+},
+{
+    "request": {
+        "restriction": {
+            "geo": {
+                "country": "FR"
+            },
+            "time": "2020-06-29 2021-06-29",
+            "originalTimeRangeForExploreUrl": "today 12-m",
+            "complexKeywordsRestriction": {
+                "keyword": [
+                    {
+                        "type": "BROAD",
+                        "value": "baguette"
+                    }
+                ]
+            }
+        },
+        "keywordType": "QUERY",
+        "metric": [
+            "TOP",
+            "RISING"
+        ],
+        "trendinessSettings": {
+            "compareTime": "2019-06-29 2020-06-28"
+        },
+        "requestOptions": {
+            "property": "",
+            "backend": "IZG",
+            "category": 0
+        },
+        "language": "fr",
+        "userCountryCode": "US"
+    },
+    "helpDialog": {
+        "title": "Requêtes associées",
+        "content": "Les utilisateurs ayant recherché le même terme que vous ont également effectué les requêtes suivantes. Vous pouvez trier les résultats en fonction des statistiques suivantes : <p>* <b>Les plus fréquentes</b> : requêtes les plus populaires. Les évaluations se font sur une échelle relative. 100 correspond à la requête le plus souvent recherchée, 50 à une requête recherchée moitié moins souvent, etc. <p>* <b>En progression</b> : requêtes ayant enregistré la plus forte progression en termes de fréquence de recherche, au cours de la période indiquée. La valeur \"Record\" désigne les résultats ayant une progression fulgurante, sans doute parce que ces requêtes sont nouvelles et ont enregistré peu de recherches par le passé (voire aucune).",
+        "url": "https://support.google.com/trends/answer/4355000"
+    },
+    "color": "PALETTE_COLOR_1",
+    "keywordName": "baguette",
+    "token": "APP6_UEAAAAAYNyUBoS8PM63oVtg0gfq0_CLiwlA8LP2",
+    "id": "RELATED_QUERIES",
+    "type": "fe_related_searches",
+    "title": "Requêtes associées",
+    "template": "fe",
+    "embedTemplate": "fe_embed",
+    "version": "1",
+    "isLong": false,
+    "isCurated": false
+}
+],
+"keywords": [
+{
+    "keyword": "baguette",
+    "name": "baguette",
+    "type": "Terme de recherche"
+}
+],
+"timeRanges": [
+"12 derniers mois"
+],
+"examples": [],
+"shareText": "Découvrir les recherches sur \"baguette\" par période, lieu et popularité sur Google Trends",
+"shouldShowMultiHeatMapMessage": false
+}

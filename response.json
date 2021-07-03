@@ -1,0 +1,212 @@
+{
+  "examples": [],
+  "keywords": [
+    {
+      "keyword": "test",
+      "name": "test",
+      "type": "Terme de recherche"
+    }
+  ],
+  "shareText": "Découvrir les recherches sur \"test\" par période, lieu et popularité sur Google Trends",
+  "shouldShowMultiHeatMapMessage": false,
+  "timeRanges": [
+    "12 derniers mois"
+  ],
+  "widgets": [
+    {
+      "bullets": [
+        {
+          "text": "test"
+        }
+      ],
+      "embedTemplate": "fe_embed",
+      "helpDialog": {
+        "content": "Les résultats reflètent la proportion de recherches portant sur un mot clé donné dans une région et pour une période spécifiques, par rapport à la région où le taux d'utilisation de ce mot clé est le plus élevé (valeur de 100). Ainsi, une valeur de 50 signifie que le mot clé a été utilisé moitié moins souvent dans la région concernée, et une valeur de 0 signifie que les données pour ce mot clé sont insuffisantes.",
+        "title": "Évolution de l'intérêt pour cette recherche"
+      },
+      "id": "TIMESERIES",
+      "isCurated": false,
+      "isLong": true,
+      "lineAnnotationText": "Intérêt de recherche",
+      "request": {
+        "comparisonItem": [
+          {
+            "complexKeywordsRestriction": {
+              "keyword": [
+                {
+                  "type": "BROAD",
+                  "value": "test"
+                }
+              ]
+            },
+            "geo": {
+              "country": "FR"
+            }
+          }
+        ],
+        "locale": "fr",
+        "requestOptions": {
+          "backend": "IZG",
+          "category": 0,
+          "property": ""
+        },
+        "resolution": "WEEK",
+        "time": "2020-07-02 2021-07-02"
+      },
+      "showAverages": false,
+      "showLegend": false,
+      "template": "fe",
+      "title": "Évolution de l'intérêt pour cette recherche",
+      "token": "APP6_UEAAAAAYOCuWN5Eu2sQdID88y3WuijGV8PbPWig",
+      "type": "fe_line_chart",
+      "version": "1"
+    },
+    {
+      "bullet": "test",
+      "color": "PALETTE_COLOR_1",
+      "displayMode": "regions",
+      "embedTemplate": "fe_embed",
+      "geo": "FR",
+      "helpDialog": {
+        "content": "Découvrez dans quelle région du monde votre mot clé a été le plus utilisé pendant la période définie. Les résultats vont de 0 à 100, où 100 correspond à la région ayant enregistré le plus fort pourcentage d'utilisation de ce mot clé par rapport au nombre total de recherches locales. Une valeur de 50 signifie que le mot clé a été utilisé moitié moins souvent dans la région concernée, et une valeur de 0 correspond à une région n'ayant pas enregistré assez de données pour ce mot clé. <p><p> <b>Remarque</b> : Une valeur supérieure signifie que la proportion d'utilisation de ce mot clé par rapport au nombre total de requêtes de recherche est plus élevée. Cela ne veut pas dire que le nombre d'occurrences du mot clé dans les requêtes de recherche est plus important. Ainsi, un petit pays où 80 % des requêtes portent sur le mot clé \"bananes\" obtiendra un résultat deux fois plus élevé que celui d'un grand pays où seulement 40 % des requêtes portent sur le mot clé \"bananes\".",
+        "title": "Recherches par région",
+        "url": "https://support.google.com/trends/answer/4355212"
+      },
+      "id": "GEO_MAP",
+      "index": 0,
+      "isCurated": false,
+      "isLong": true,
+      "request": {
+        "comparisonItem": [
+          {
+            "complexKeywordsRestriction": {
+              "keyword": [
+                {
+                  "type": "BROAD",
+                  "value": "test"
+                }
+              ]
+            },
+            "time": "2020-07-02 2021-07-02"
+          }
+        ],
+        "geo": {
+          "country": "FR"
+        },
+        "locale": "fr",
+        "requestOptions": {
+          "backend": "IZG",
+          "category": 0,
+          "property": ""
+        },
+        "resolution": "REGION"
+      },
+      "resolution": "provinces",
+      "searchInterestLabel": "Intérêt de recherche",
+      "template": "fe",
+      "title": "Recherches par région",
+      "token": "APP6_UEAAAAAYOCuWGzjTTGrqydWcmf1v3FSvKTOQsoW",
+      "type": "fe_geo_chart_explore",
+      "version": "1"
+    },
+    {
+      "color": "PALETTE_COLOR_1",
+      "embedTemplate": "fe_embed",
+      "helpDialog": {
+        "content": "Les utilisateurs ayant recherché le même terme que vous ont également effectué une recherche sur ces sujets. Vous pouvez trier les résultats en fonction des statistiques suivantes : <p>* <b>Les plus fréquents</b> : sujets les plus populaires. Les évaluations se font sur une échelle relative. 100 correspond au sujet le plus souvent recherché, 50 à un sujet recherché moitié moins souvent, etc. <p>* <b>En progression</b> : sujets associés ayant enregistré la plus forte progression en termes de fréquence de recherche, au cours de la période indiquée. La valeur \"Record\" désigne les résultats ayant une progression fulgurante, sans doute parce que ces sujets sont nouveaux et ont enregistré peu de recherches par le passé (voire aucune).",
+        "title": "Sujets associés"
+      },
+      "id": "RELATED_TOPICS",
+      "isCurated": false,
+      "isLong": false,
+      "keywordName": "test",
+      "request": {
+        "keywordType": "ENTITY",
+        "language": "fr",
+        "metric": [
+          "TOP",
+          "RISING"
+        ],
+        "requestOptions": {
+          "backend": "IZG",
+          "category": 0,
+          "property": ""
+        },
+        "restriction": {
+          "complexKeywordsRestriction": {
+            "keyword": [
+              {
+                "type": "BROAD",
+                "value": "test"
+              }
+            ]
+          },
+          "geo": {
+            "country": "FR"
+          },
+          "originalTimeRangeForExploreUrl": "today 12-m",
+          "time": "2020-07-02 2021-07-02"
+        },
+        "trendinessSettings": {
+          "compareTime": "2019-07-02 2020-07-01"
+        },
+        "userCountryCode": "FR"
+      },
+      "template": "fe",
+      "title": "Sujets associés",
+      "token": "APP6_UEAAAAAYOCuWEe_UczAEbPIh88BxnOYtfd9uPr9",
+      "type": "fe_related_searches",
+      "version": "1"
+    },
+    {
+      "color": "PALETTE_COLOR_1",
+      "embedTemplate": "fe_embed",
+      "helpDialog": {
+        "content": "Les utilisateurs ayant recherché le même terme que vous ont également effectué les requêtes suivantes. Vous pouvez trier les résultats en fonction des statistiques suivantes : <p>* <b>Les plus fréquentes</b> : requêtes les plus populaires. Les évaluations se font sur une échelle relative. 100 correspond à la requête le plus souvent recherchée, 50 à une requête recherchée moitié moins souvent, etc. <p>* <b>En progression</b> : requêtes ayant enregistré la plus forte progression en termes de fréquence de recherche, au cours de la période indiquée. La valeur \"Record\" désigne les résultats ayant une progression fulgurante, sans doute parce que ces requêtes sont nouvelles et ont enregistré peu de recherches par le passé (voire aucune).",
+        "title": "Requêtes associées",
+        "url": "https://support.google.com/trends/answer/4355000"
+      },
+      "id": "RELATED_QUERIES",
+      "isCurated": false,
+      "isLong": false,
+      "keywordName": "test",
+      "request": {
+        "keywordType": "QUERY",
+        "language": "fr",
+        "metric": [
+          "TOP",
+          "RISING"
+        ],
+        "requestOptions": {
+          "backend": "IZG",
+          "category": 0,
+          "property": ""
+        },
+        "restriction": {
+          "complexKeywordsRestriction": {
+            "keyword": [
+              {
+                "type": "BROAD",
+                "value": "test"
+              }
+            ]
+          },
+          "geo": {
+            "country": "FR"
+          },
+          "originalTimeRangeForExploreUrl": "today 12-m",
+          "time": "2020-07-02 2021-07-02"
+        },
+        "trendinessSettings": {
+          "compareTime": "2019-07-02 2020-07-01"
+        },
+        "userCountryCode": "FR"
+      },
+      "template": "fe",
+      "title": "Requêtes associées",
+      "token": "APP6_UEAAAAAYOCuWNsQRVWgIwftuXpo3-NIe9djALOG",
+      "type": "fe_related_searches",
+      "version": "1"
+    }
+  ]
+}
