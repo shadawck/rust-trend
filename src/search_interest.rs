@@ -1,62 +1,82 @@
-use crate::{client::*, endpoint::*, locale::*, query_builder::*, request_url::*, uri::*};
-use chrono::{prelude::*};
-use reqwest::{blocking::Response, Error};
+use std::usize;
+
+use crate::client::*;
+use crate::utils;
+use chrono::prelude::*;
+use reqwest::Url;
+use serde_json::Value;
 
 // Correpond to Multiline request => Google trend interest curve
 #[derive(Debug)]
 pub struct SearchInterest {
-    //RequestBody: String, //Hiden field
-    endpoint: Endpoint,
-    uri: URI,
-
-    pub locale: Locale,
-    pub keywords: String,
-
-    pub start_date: String, // Default : Today
-    pub end_date: String,   // Default : Today
+    pub end_date: Date<Utc>,   // Default : Today
+    pub start_date: Date<Utc>, // Default : Today
+    token: String,
+    request: String,
+    client: Client,
 }
 
 impl SearchInterest {
-    pub fn new(keywords: String, locale: Locale) -> SearchInterest {
-        let default_end_date = Utc::now();
-        let default_start_date = Utc::now().with_year(default_end_date.year()-1).unwrap();
+    const MULTILINE_ENDPOINT: &'static str =
+        "https://trends.google.com/trends/api/widgetdata/multiline";
+    const BAD_CHARACTER: usize = 5;
+
+    pub fn new(client: Client) -> SearchInterest {
+        let end_date = Utc::now().date();
+        let start_date = Utc::now().with_year(end_date.year() - 1).unwrap().date();
+
+        let widgets: Value = serde_json::from_str(client.response.as_str()).unwrap();
+
+        let request = widgets["widgets"][0]["request"].to_string();
+        let token = widgets["widgets"][0]["token"].to_string().replace("\"", "");
 
         SearchInterest {
-            keywords,
-            locale,
-            endpoint: Endpoint::WidgetData("/widgetdata".to_owned()),
-            uri: URI::Multiline("/multiline".to_owned()),
-            start_date: default_start_date.format("%Y-%m-%d").to_string(),
-            end_date: default_end_date.format("%Y-%m-%d").to_string(),
+            end_date,
+            start_date,
+            request,
+            token,
+            client,
         }
     }
 
     pub fn with_filter(
-        keywords: String,
-        locale: Locale,
-        start_date: String,
-        end_date: String,
+        client: Client,
+        start_date: Date<Utc>,
+        end_date: Date<Utc>,
     ) -> SearchInterest {
-        let mut search_interest: SearchInterest = Self::new(keywords, locale);
+        let mut search_interest: SearchInterest = Self::new(client);
         search_interest.start_date = start_date;
         search_interest.end_date = end_date;
         search_interest
     }
 
-    pub fn get(&self, client: Client) {
-        let request = self.build_request();
+    pub fn get(&self) {
+        let url = Url::parse(Self::MULTILINE_ENDPOINT).unwrap();
 
-
-        let url = RequestUrl::new("/widgetdata".to_string(), "/multiline".to_string()).build();
-        println!("URL  : {}", url);
-
-        let query = QueryBuilder::build(client.token.interest_token.to_string(), request.to_owned());
-        println!("Query : {:?}", query);
+        let resp = self
+            .client
+            .client_builder
+            .get(url)
+            .query(&[
+                ("hl", self.client.lang),
+                ("geo", self.client.country),
+                ("tz", "-120"),
+                ("req", &self.request),
+                ("token", &self.token),
+                ("tz", "-120"),
+            ])
+            .send();
         
-    }
+        let resp = match resp {
+            Ok(resp) => resp,
+            Err(error) => panic!("Can't get client response: {:?}", error),
+        };
 
-    fn build_request(&self) -> String {
-        let request = format!("{{'time':'{}+{}','resolution':'WEEK','locale':'{}','comparisonItem':[{{'geo':{{'country':'{}'}},'complexKeywordsRestriction':{{'keyword':[{{'type':'BROAD','value':'{}'}}]}}}}],'requestOptions':{{'property':'','backend':'IZG','category':0}}}}", self.start_date, self.end_date, self.locale.to_string().to_lowercase(), self.locale.to_string().to_uppercase(), self.keywords);
-        request
+        let body = resp.text().unwrap();
+        let response = utils::sanitize_response(&body, Self::BAD_CHARACTER).to_string();
+        
+        println!("{}", response);
     }
 }
+
+

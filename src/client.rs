@@ -1,26 +1,27 @@
-use crate::token::*;
-use reqwest::{blocking::ClientBuilder, header, Url};
-use serde_json::Value;
-use std::fmt;
+use crate::utils;
+use reqwest::{blocking::ClientBuilder, blocking::Response, header, Error, Url};
+use serde_json::{Value};
 
+#[derive(Debug, Clone)]
 pub struct Client {
-    pub cookie: &'static str,
+    pub client_builder: reqwest::blocking::Client,
+    cookie: &'static str,
+    pub country: &'static str,
     pub keywords: &'static str,
-    pub token: Token,
+    pub lang: &'static str,
+    pub response: String,
 }
 
 impl Client {
-    const TOKEN_HANDSHAKE: &'static str = "https://trends.google.com/trends/api/explore";
+    const EXPLORE_ENDPOINT: &'static str = "https://trends.google.com/trends/api/explore";
+    const BAD_CHARACTER: usize = 4;
 
-    pub fn new(cookie: &'static str, keywords: &'static str) -> Client {
-        Client {
-            cookie,
-            keywords,
-            token: Token::retrieve_new_token(cookie, keywords),
-        }
-    }
-
-    pub fn build(cookie: &'static str, keywords: &'static str) {
+    pub fn new(
+        cookie: &'static str,
+        keywords: &'static str,
+        lang: &'static str,
+        country: &'static str,
+    ) -> Client {
         let mut headers = header::HeaderMap::new();
         headers.insert("Cookie", header::HeaderValue::from_static(cookie));
         let client_builder = ClientBuilder::new().default_headers(headers).build();
@@ -32,62 +33,38 @@ impl Client {
             ),
         };
 
-        let url = Url::parse(Self::TOKEN_HANDSHAKE).unwrap();
+        let url = Url::parse(Self::EXPLORE_ENDPOINT).unwrap();
 
         let comparison_item = format!("{{'comparisonItem':[{{'keyword':'{}','geo':'FR','time':'today 12-m'}}],'category':0,'property':''}}", keywords);
 
         let resp = client_builder
             .get(url)
             .query(&[
-                ("hl", "fr"),
+                ("hl", lang),
+                ("geo", country),
                 ("tz", "-120"),
                 ("req", &comparison_item),
                 ("tz", "-120"),
-            ]).send();
+            ])
+            .send();
 
         let resp = match resp {
             Ok(resp) => resp,
-            Err(error) => panic!("Can't get response : {:?}", error),
+            Err(error) => panic!("Can't get client response: {:?}", error),
         };
 
         let body = resp.text().unwrap();
+        let response = utils::sanitize_response(&body, Self::BAD_CHARACTER).to_string();
 
-        let clean_body = clean_resp_to_deserilize(&body, 4);
-        let widgets: Value = serde_json::from_str(clean_body).unwrap();
-        let search_interest_request = widgets["widgets"][0]["request"].to_string();
-        let search_interest_token = widgets["widgets"][0]["token"].to_string().replace("\"", "");
-
-        let resp_interest = client_builder
-            .get("https://trends.google.com/trends/api/widgetdata/multiline".to_owned())
-            .query(&[
-                ("hl", "fr"),
-                ("tz", "-120"),
-                ("req", &search_interest_request),
-                ("token", &search_interest_token ),
-                ("tz", "-120"),
-            ]).send();
-
-            let resp_interest= match resp_interest {
-                Ok(resp_interest) => resp_interest,
-                Err(error) => panic!("Can't get response on Search Interest endpoint : {:?}", error),
-            };
-
-            let search_interest_body = resp_interest.text().unwrap();
-
-            let clean_body_interest = clean_resp_to_deserilize(&search_interest_body, 5);
-
-            let search_interest_response: Value = serde_json::from_str(clean_body_interest).unwrap();
-
-            println!("{}", search_interest_response);
+        Client {
+            client_builder,
+            country,
+            cookie,
+            keywords,
+            lang,
+            response,
+        }
     }
+
 }
-
-fn clean_resp_to_deserilize(body: &str, pos: usize) -> &str {
-    match body.char_indices().skip(pos).next() {
-        Some((pos, _)) => &body[pos..],
-        None => "",
-    }
-}
-
-
 
