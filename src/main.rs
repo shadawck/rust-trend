@@ -1,14 +1,7 @@
 mod client;
-mod endpoint;
-mod locale;
-mod query_builder;
-mod request_url;
+//mod locale;
 mod search_interest;
-mod token;
-mod uri;
 mod utils;
-
-use chrono::prelude::*;
 
 use crate::client::*;
 use crate::search_interest::*;
@@ -22,15 +15,17 @@ fn main() {
     let keywords = "test";
     let country = "FR";
     let lang = "fr";
-    let start_date: Date<Utc> = Utc.ymd(2014, 7, 8);
-    let end_date: Date<Utc> = Utc.ymd(2020, 12, 20);
+    //let start_date: Date<Utc> = Utc.ymd(2014, 7, 8);
+    //let end_date: Date<Utc> = Utc.ymd(2020, 12, 20);
+    //let time_filter = ""; // 1-H
+    //SearchInterest::with_period(google_client.clone(), start_date, end_date); // Need to recompute a token -> Changing date = new token to auth
 
-    
     let google_client = Client::new(my_cookie, keywords, lang, country);
+    //let google_client_filtered = google_client.with_filter("PeriodOfTime", "Category", "SearchPlace");
     
-    SearchInterest::new(google_client.clone()).get();
-    SearchInterest::with_filter(google_client.clone(), start_date, end_date);
+    let _search_interest = SearchInterest::new(google_client.clone()).get().unwrap();
+    //println!("{}", search_interest);
 
 
-    //let search_result = simple_search.get(client);
+
 }

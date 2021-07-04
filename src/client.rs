@@ -1,6 +1,5 @@
 use crate::utils;
-use reqwest::{blocking::ClientBuilder, blocking::Response, header, Error, Url};
-use serde_json::{Value};
+use reqwest::{blocking::ClientBuilder, header, Url};
 
 #[derive(Debug, Clone)]
 pub struct Client {
