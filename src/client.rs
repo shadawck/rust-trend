@@ -1,5 +1,6 @@
 use crate::utils;
 use reqwest::{Url, blocking::{ClientBuilder, RequestBuilder}, header};
+use serde_json::Value;
 
 #[derive(Debug, Clone)]
 pub struct Client {
@@ -8,7 +9,7 @@ pub struct Client {
     pub country: &'static str,
     pub keywords: &'static str,
     pub lang: &'static str,
-    pub response: String,
+    pub response: Value,
 }
 
 impl Client {
@@ -53,7 +54,9 @@ impl Client {
         };
 
         let body = resp.text().unwrap();
-        let response = utils::sanitize_response(&body, Self::BAD_CHARACTER).to_string();
+        let clean_response = utils::sanitize_response(&body, Self::BAD_CHARACTER).to_string();
+
+        let response: Value = serde_json::from_str(clean_response.as_str()).unwrap();
 
         Client {
             client_builder,

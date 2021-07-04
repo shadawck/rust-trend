@@ -26,10 +26,8 @@ impl RelatedTopics {
         let end_date = Utc::now().date();
         let start_date = Utc::now().with_year(end_date.year() - 1).unwrap().date();
 
-        let widgets: Value = serde_json::from_str(client.response.as_str()).unwrap();
-
-        let request = widgets["widgets"][2]["request"].clone();
-        let token = widgets["widgets"][2]["token"].to_string().replace("\"", "");
+        let request = client.response["widgets"][2]["request"].clone();
+        let token = client.response["widgets"][2]["token"].to_string().replace("\"", "");
 
         RelatedTopics {
             end_date,

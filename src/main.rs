@@ -5,12 +5,13 @@ mod utils;
 mod region_interest;
 mod related_topics;
 mod related_queries;
-mod request_builder;
+mod request_handler;
 
 use crate::client::*;
 use crate::region_interest::RegionInterest;
 use crate::related_queries::RelatedQueries;
 use crate::related_topics::RelatedTopics;
+use crate::request_handler::Query;
 use crate::search_interest::*;
 
 
@@ -30,17 +31,15 @@ fn main() {
 
     let google_client = Client::new(my_cookie, keywords, lang, country);
 
-    let search_interest = SearchInterest::new(google_client.clone());
-    //println!("{}", _search_interest);
-//
-    //let _region_interest = RegionInterest::new(google_client.clone()).get().unwrap();
-    //println!("{}", _region_interest);
-//
-    //let _related_topics = RelatedTopics::new(google_client.clone()).get().unwrap();
-    //println!("{}", _related_topics);
-//
-    //let _related_queries = RelatedQueries::new(google_client.clone()).get().unwrap();
-    //println!("{}", _related_queries);
+    let _search_interest = SearchInterest::new(google_client.clone()).get();
+    println!("{}", _search_interest.unwrap());
 
-    SearchInterest::get_impl(&search_interest);
+    let _region_interest = RegionInterest::new(google_client.clone()).get().unwrap();
+    println!("{}", _region_interest);
+
+    let _related_topics = RelatedTopics::new(google_client.clone()).get().unwrap();
+    println!("{}", _related_topics);
+
+    let _related_queries = RelatedQueries::new(google_client.clone()).get().unwrap();
+    println!("{}", _related_queries);
 }

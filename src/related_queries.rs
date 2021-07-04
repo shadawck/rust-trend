@@ -25,10 +25,9 @@ impl RelatedQueries {
         let end_date = Utc::now().date();
         let start_date = Utc::now().with_year(end_date.year() - 1).unwrap().date();
 
-        let widgets: Value = serde_json::from_str(client.response.as_str()).unwrap();
 
-        let request = widgets["widgets"][3]["request"].clone();
-        let token = widgets["widgets"][3]["token"].to_string().replace("\"", "");
+        let request = client.response["widgets"][3]["request"].clone();
+        let token = client.response["widgets"][3]["token"].to_string().replace("\"", "");
 
         RelatedQueries {
             end_date,
