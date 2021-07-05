@@ -1,21 +1,38 @@
 use crate::utils;
 use reqwest::{
     blocking::ClientBuilder,
-    blocking::{RequestBuilder, Response},
-    header, Error, Url,
+    header, Url,
 };
 use serde_json::Value;
 
-#[derive(Default, Debug, Clone)]
+#[derive(Debug, Clone)]
 pub struct Client {
     pub client_builder: reqwest::blocking::Client,
-    cookie: &'static str,
-    country: &'static str,
-    keywords: &'static str,
+    pub cookie: &'static str,
+    pub country: &'static str,
+    pub keywords: &'static str,
     pub lang: &'static str,
+    pub property: &'static str,
+    pub time: &'static str,
+    pub category: u8,
     pub response: Value,
 }
 
+impl Default for Client {
+    fn default() -> Client {
+        Client {
+            client_builder: Default::default(),
+            cookie: Default::default(),
+            response: serde_json::from_str("{}").unwrap(),
+            keywords: Default::default(),
+            time: "today 12-m",
+            country: "",
+            property: "",
+            lang: "en-US",
+            category: 0,
+        }
+    }
+}
 
 impl Client {
     const EXPLORE_ENDPOINT: &'static str = "https://trends.google.com/trends/api/explore";
@@ -38,36 +55,39 @@ impl Client {
             ),
         };
 
-        let resp = Self::build(client_builder.clone(), lang, country, keywords);
-        let response = Self::send(resp);
-
         Client {
             client_builder,
             country,
             cookie,
             keywords,
             lang,
-            response,
+            ..Default::default()
         }
     }
 
-    pub fn with_category(mut self, category: u8) -> Client {
-        let resp =
-            Self::build_with_category(self.client_builder, self.lang, self.country, self.keywords, category);
-
-        let mut client_with_category = Client::new(self.cookie, self.keywords, self.lang, self.country);
-        client_with_category.response = Self::send(resp);
-        
-        client_with_category
+    pub fn with_category(mut self, category: u8) -> Self {
+        self.category = category;
+        self
     }
 
-    fn build_with_category(
-        client_builder: reqwest::blocking::Client,
-        lang: &'static str,
-        country: &'static str,
-        keywords: &'static str,
-        category: u8,
-    ) -> RequestBuilder {
+    pub fn with_property(mut self, property: &'static str) -> Self {
+        self.property = property;
+        self
+    }
+
+    pub fn with_period(mut self, period: &'static str) -> Client {
+        self.time = period;
+        self
+    }
+
+    pub fn with_filter(mut self, category: u8, property: &'static str, time: &'static str) -> Client {
+        self.category = category;
+        self.property = property;
+        self.time = time;
+        self
+    }
+
+    pub fn build(mut self) -> Self {
         let url = Url::parse(Self::EXPLORE_ENDPOINT).unwrap();
         let comparison_item = format!(
             "{{'comparisonItem':[{{
@@ -75,53 +95,23 @@ impl Client {
                     'geo':'{}',
                     'time':'today 12-m'
                 }}],
-                'property':'',
-                'backend' : 'IZG',
-                'category':'{}',
-                
+                'category': {},
+                'property':'{}'
             }}",
-            keywords, country, category
+            self.keywords, self.country, self.category, self.property
         );
 
-        client_builder.get(url).query(&[
-            ("hl", lang),
-            ("geo", country),
-            ("tz", "-120"),
-            ("req", &comparison_item),
-            ("tz", "-120"),
-        ])
-    }
-
-    fn build(
-        client_builder: reqwest::blocking::Client,
-        lang: &'static str,
-        country: &'static str,
-        keywords: &'static str,
-    ) -> RequestBuilder {
-        let url = Url::parse(Self::EXPLORE_ENDPOINT).unwrap();
-        let comparison_item = format!(
-            "{{'comparisonItem':[{{
-                    'keyword':'{}',
-                    'geo':'{}',
-                    'time':'today 12-m'
-                }}],
-                'category':0,
-                'property':''
-            }}",
-            keywords, country
-        );
-
-        client_builder.get(url).query(&[
-            ("hl", lang),
-            ("geo", country),
-            ("tz", "-120"),
-            ("req", &comparison_item),
-            ("tz", "-120"),
-        ])
-    }
-
-    fn send(resp: RequestBuilder) -> Value {
-        let resp = resp.send();
+        let resp = self
+            .client_builder
+            .get(url)
+            .query(&[
+                ("hl", self.lang),
+                ("geo", self.country),
+                ("tz", "-120"),
+                ("req", &comparison_item),
+                ("tz", "-120"),
+            ])
+            .send();
 
         let resp = match resp {
             Ok(resp) => resp,
@@ -131,6 +121,8 @@ impl Client {
         let body = resp.text().unwrap();
         let clean_response = utils::sanitize_response(&body, Self::BAD_CHARACTER).to_string();
 
-        serde_json::from_str(clean_response.as_str()).unwrap()
+        self.response = serde_json::from_str(clean_response.as_str()).unwrap();
+
+        self
     }
 }

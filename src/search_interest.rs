@@ -1,4 +1,4 @@
-use crate::client::*;
+use crate::client::Client;
 use crate::request_handler::Query;
 
 use chrono::prelude::*;
