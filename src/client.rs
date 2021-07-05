@@ -1,8 +1,5 @@
 use crate::utils;
-use reqwest::{
-    blocking::ClientBuilder,
-    header, Url,
-};
+use reqwest::{blocking::ClientBuilder, header, Url};
 use serde_json::Value;
 
 #[derive(Debug, Clone)]
@@ -43,7 +40,7 @@ impl Client {
         keywords: &'static str,
         lang: &'static str,
         country: &'static str,
-    ) -> Client {
+    ) -> Self {
         let mut headers = header::HeaderMap::new();
         headers.insert("Cookie", header::HeaderValue::from_static(cookie));
         let client_builder = ClientBuilder::new().default_headers(headers).build();
@@ -55,7 +52,7 @@ impl Client {
             ),
         };
 
-        Client {
+        Self {
             client_builder,
             country,
             cookie,
@@ -75,12 +72,12 @@ impl Client {
         self
     }
 
-    pub fn with_period(mut self, period: &'static str) -> Client {
+    pub fn with_period(mut self, period: &'static str) -> Self {
         self.time = period;
         self
     }
 
-    pub fn with_filter(mut self, category: u8, property: &'static str, time: &'static str) -> Client {
+    pub fn with_filter(mut self, category: u8, property: &'static str, time: &'static str) -> Self {
         self.category = category;
         self.property = property;
         self.time = time;
@@ -122,7 +119,6 @@ impl Client {
         let clean_response = utils::sanitize_response(&body, Self::BAD_CHARACTER).to_string();
 
         self.response = serde_json::from_str(clean_response.as_str()).unwrap();
-
         self
     }
 }

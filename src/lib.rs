@@ -1,4 +1,3 @@
-
 /// Lib mod
 pub mod client;
 pub mod search_interest;
@@ -7,6 +6,9 @@ pub mod region_interest;
 pub mod related_queries;
 pub mod related_topics;
 
+mod lang;
+mod country;
+mod category;
 mod request_handler;
 mod utils;
 

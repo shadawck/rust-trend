@@ -1,12 +1,12 @@
 use std::fmt;
 
 #[derive(Debug, Clone, Copy)]
-pub struct Locale {
-    locale: &'static str,
+pub struct Country {
+    country: &'static str,
 }
 
-impl Locale {
-    const SUPPORTED_LOCALE: &'static [&'static str] = &[
+impl Country {
+    const SUPPORTED_COUNTRY: &'static [&'static str] = &[
         "ALL", "ID", "FI", "SC", "HT", "CG", "BL", "GF", "TD", "DJ", "TL", "GA", "CI", "YT", "TG",
         "GP", "BJ", "CD", "KM", "ML", "MQ", "GN", "SN", "NC", "RE", "CM", "PF", "GG", "GB", "NE",
         "GI", "BI", "FR", "MG", "BF", "MU", "HN", "JE", "KY", "TN", "MR", "DZ", "MA", "IM", "CU",
@@ -26,26 +26,26 @@ impl Locale {
         "SB", "SM", "TK", "TO", "TV", "UM", "VA", "VC", "VU", "WF", "WS",
     ];
 
-    pub fn new(locale: &'static str) -> Locale {
-        Locale {
-            locale: Self::check_locale(locale),
+    pub fn new(country: &'static str) -> Country {
+        Country {
+            country: Self::check_country(country),
         }
     }
 
-    fn check_locale(locale: &'static str) -> &'static str {
-        match Self::SUPPORTED_LOCALE.contains(&locale) {
-            true  => locale,
-            false => panic!("Unsupported locale ! Check available locale on google trend or use list() to list all available locales"),
+    fn check_country(country: &'static str) -> &'static str {
+        match Self::SUPPORTED_COUNTRY.contains(&country) {
+            true  => country,
+            false => panic!("Unsupported country ! Check available country on google trend or use list() to list all available country"),
         }
     }
 
     pub fn list() {
-        println!("{:#?}", Self::SUPPORTED_LOCALE);
+        println!("{:#?}", Self::SUPPORTED_COUNTRY);
     }
 }
 
-impl fmt::Display for Locale {
+impl fmt::Display for Country {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{}", self.locale)
+        write!(f, "{}", self.country)
     }
 }
