@@ -6,9 +6,11 @@ pub mod region_interest;
 pub mod related_queries;
 pub mod related_topics;
 
-mod lang;
-mod country;
-mod category;
+pub mod lang;
+pub mod country;
+pub mod category;
+pub mod property;
+
 mod request_handler;
 mod utils;
 
