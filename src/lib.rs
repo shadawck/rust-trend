@@ -22,4 +22,7 @@ pub use region_interest::RegionInterest;
 pub use related_queries::RelatedQueries;
 pub use related_topics::RelatedTopics;
 
-
+pub use lang::Lang;
+pub use country::Country;
+pub use category::Category;
+pub use property::Property;

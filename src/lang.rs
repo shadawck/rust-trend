@@ -28,6 +28,10 @@ impl Lang {
         }
     }
 
+    pub fn as_str(&self) -> &'static str{
+        self.lang
+    }
+
     pub fn list() {
         println!("{:#?}", Self::SUPPORTED_LANG);
     }

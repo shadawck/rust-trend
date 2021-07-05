@@ -1,4 +1,4 @@
-use crate::utils;
+use crate::{country::Country, lang::Lang, property::Property, utils};
 use reqwest::{blocking::ClientBuilder, header, Url};
 use serde_json::Value;
 
@@ -6,12 +6,12 @@ use serde_json::Value;
 pub struct Client {
     pub client_builder: reqwest::blocking::Client,
     pub cookie: &'static str,
-    pub country: &'static str,
+    pub country: Country,
     pub keywords: &'static str,
-    pub lang: &'static str,
-    pub property: &'static str,
+    pub lang: Lang,
+    pub property: Property,
     pub time: &'static str,
-    pub category: u8,
+    pub category: u16,
     pub response: Value,
 }
 
@@ -23,9 +23,9 @@ impl Default for Client {
             response: serde_json::from_str("{}").unwrap(),
             keywords: Default::default(),
             time: "today 12-m",
-            country: "",
-            property: "",
-            lang: "en-US",
+            country: Country::new("ALL"),
+            property: Property::new("web"),
+            lang: Lang::new("en"),
             category: 0,
         }
     }
@@ -38,8 +38,8 @@ impl Client {
     pub fn new(
         cookie: &'static str,
         keywords: &'static str,
-        lang: &'static str,
-        country: &'static str,
+        lang: Lang,
+        country: Country,
     ) -> Self {
         let mut headers = header::HeaderMap::new();
         headers.insert("Cookie", header::HeaderValue::from_static(cookie));
@@ -62,12 +62,12 @@ impl Client {
         }
     }
 
-    pub fn with_category(mut self, category: u8) -> Self {
+    pub fn with_category(mut self, category: u16) -> Self {
         self.category = category;
         self
     }
 
-    pub fn with_property(mut self, property: &'static str) -> Self {
+    pub fn with_property(mut self, property: Property) -> Self {
         self.property = property;
         self
     }
@@ -77,7 +77,7 @@ impl Client {
         self
     }
 
-    pub fn with_filter(mut self, category: u8, property: &'static str, time: &'static str) -> Self {
+    pub fn with_filter(mut self, category: u16, property: Property, time: &'static str) -> Self {
         self.category = category;
         self.property = property;
         self.time = time;
@@ -102,8 +102,8 @@ impl Client {
             .client_builder
             .get(url)
             .query(&[
-                ("hl", self.lang),
-                ("geo", self.country),
+                ("hl", self.lang.as_str()),
+                ("geo", self.country.as_str()),
                 ("tz", "-120"),
                 ("req", &comparison_item),
                 ("tz", "-120"),
