@@ -67,21 +67,5 @@ impl Client {
             response,
         }
     }
-
-    pub fn build_request(
-        &self,
-        url: Url,
-        request: String,
-        token: String,
-    ) -> RequestBuilder {
-        self.client_builder.get(url).query(&[
-            ("hl",self.lang),
-            ("tz", "-120"),
-            ("req", request.as_str()),
-            ("token", token.as_str()),
-            ("tz", "-120"),
-        ])
-    }
-
 }
 

@@ -1,9 +1,5 @@
-use std::usize;
-
 use crate::client::*;
 use crate::request_handler::Query;
-use crate::utils;
-use reqwest::Url;
 use serde_json::{Result, Value};
 
 // Correpond to Multiline request => Google trend interest curve
@@ -21,6 +17,6 @@ impl RegionInterest {
     }
 
     pub fn get(&self) -> Result<Value>{
-        RegionInterest::new(self.client.clone()).send_request()
+        self.send_request()
     }
 }

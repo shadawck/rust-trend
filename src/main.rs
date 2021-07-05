@@ -1,23 +1,17 @@
 mod client;
 //mod locale;
+mod region_interest;
+mod related_queries;
+mod related_topics;
+mod request_handler;
 mod search_interest;
 mod utils;
-mod region_interest;
-mod related_topics;
-mod related_queries;
-mod request_handler;
 
 use crate::client::*;
 use crate::region_interest::RegionInterest;
 use crate::related_queries::RelatedQueries;
 use crate::related_topics::RelatedTopics;
-use crate::request_handler::Query;
-use crate::search_interest::*;
-
-
-//struct RegionInterest {}
-//struct RelatedTopics {}
-//struct RelatedQueries {}
+use crate::search_interest::SearchInterest;
 
 fn main() {
     let my_cookie = "NID=218=WdklPXCK9nRe7pPNLmdGZ4w_2cfOsRdeD_ESaCAeDB_0MqJrCqDYOll55y_quoQ8I3RQjQmssffaOcQNj3iMhqK3Wep8DOdcJW93-ZxN6Y87Zg5Z_0Ifw7_X4tVYkvdkJoFL9-QfStcvqlGH5wPiBe0ApgskqQllrqtxGK4mEXk";

@@ -1,6 +1,7 @@
-use std::u8;
-
 use crate::region_interest::RegionInterest;
+use crate::related_queries::RelatedQueries;
+use crate::related_topics::RelatedTopics;
+
 use crate::utils;
 use reqwest::blocking::RequestBuilder;
 use reqwest::Url;
@@ -28,8 +29,7 @@ pub trait Query {
 
 impl Query for SearchInterest {
     fn build_request(&self) -> RequestBuilder {
-        const MULTILINE_ENDPOINT: &'static str =
-            "https://trends.google.com/trends/api/widgetdata/multiline";
+        const MULTILINE_ENDPOINT: &'static str = "https://trends.google.com/trends/api/widgetdata/multiline";
         let url = Url::parse(MULTILINE_ENDPOINT).unwrap();
 
         let request = self.client.response["widgets"][0]["request"].to_string();
@@ -43,8 +43,7 @@ impl Query for SearchInterest {
 
 impl Query for RegionInterest {
     fn build_request(&self) -> RequestBuilder {
-        const COMPAREDGEO_ENDPOINT: &'static str =
-            "https://trends.google.com/trends/api/widgetdata/comparedgeo";
+        const COMPAREDGEO_ENDPOINT: &'static str = "https://trends.google.com/trends/api/widgetdata/comparedgeo";
         let url = Url::parse(COMPAREDGEO_ENDPOINT).unwrap();
 
         let request = self.client.response["widgets"][1]["request"].to_string();
@@ -55,6 +54,35 @@ impl Query for RegionInterest {
         build_query(self.client.clone(), url, request, token)
     }
 }
+
+impl Query for RelatedTopics {
+    fn build_request(&self) -> RequestBuilder {
+        const RELATED_SEARCH_ENDPOINT: &'static str = "https://trends.google.com/trends/api/widgetdata/relatedsearches";
+        let url = Url::parse(RELATED_SEARCH_ENDPOINT).unwrap();
+
+        let request = self.client.response["widgets"][2]["request"].to_string();
+        let token = self.client.response["widgets"][2]["token"]
+            .to_string()
+            .replace("\"", "");
+
+        build_query(self.client.clone(), url, request, token)
+    }
+}
+
+impl Query for RelatedQueries {
+    fn build_request(&self) -> RequestBuilder {
+        const RELATED_QUERY_ENDPOINT: &'static str = "https://trends.google.com/trends/api/widgetdata/relatedsearches";
+        let url = Url::parse(RELATED_QUERY_ENDPOINT).unwrap();
+
+        let request = self.client.response["widgets"][3]["request"].to_string();
+        let token = self.client.response["widgets"][3]["token"]
+            .to_string()
+            .replace("\"", "");
+
+        build_query(self.client.clone(), url, request, token)
+    }
+}
+
 
 fn build_query(client: Client, url: Url, request: String, token: String) -> RequestBuilder {
     client.client_builder.get(url).query(&[
