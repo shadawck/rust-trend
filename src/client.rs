@@ -1,16 +1,21 @@
 use crate::utils;
-use reqwest::{Url, blocking::{ClientBuilder, RequestBuilder}, header};
+use reqwest::{
+    blocking::ClientBuilder,
+    blocking::{RequestBuilder, Response},
+    header, Error, Url,
+};
 use serde_json::Value;
 
-#[derive(Debug, Clone)]
+#[derive(Default, Debug, Clone)]
 pub struct Client {
     pub client_builder: reqwest::blocking::Client,
     cookie: &'static str,
-    pub country: &'static str,
-    pub keywords: &'static str,
+    country: &'static str,
+    keywords: &'static str,
     pub lang: &'static str,
     pub response: Value,
 }
+
 
 impl Client {
     const EXPLORE_ENDPOINT: &'static str = "https://trends.google.com/trends/api/explore";
@@ -33,30 +38,8 @@ impl Client {
             ),
         };
 
-        let url = Url::parse(Self::EXPLORE_ENDPOINT).unwrap();
-
-        let comparison_item = format!("{{'comparisonItem':[{{'keyword':'{}','geo':'{}','time':'today 12-m'}}],'category':0,'property':''}}", keywords, country);
-
-        let resp = client_builder
-            .get(url)
-            .query(&[
-                ("hl", lang),
-                ("geo", country),
-                ("tz", "-120"),
-                ("req", &comparison_item),
-                ("tz", "-120"),
-            ])
-            .send();
-
-        let resp = match resp {
-            Ok(resp) => resp,
-            Err(error) => panic!("Can't get client response: {:?}", error),
-        };
-
-        let body = resp.text().unwrap();
-        let clean_response = utils::sanitize_response(&body, Self::BAD_CHARACTER).to_string();
-
-        let response: Value = serde_json::from_str(clean_response.as_str()).unwrap();
+        let resp = Self::build(client_builder.clone(), lang, country, keywords);
+        let response = Self::send(resp);
 
         Client {
             client_builder,
@@ -67,5 +50,87 @@ impl Client {
             response,
         }
     }
-}
 
+    pub fn with_category(mut self, category: u8) -> Client {
+        let resp =
+            Self::build_with_category(self.client_builder, self.lang, self.country, self.keywords, category);
+
+        let mut client_with_category = Client::new(self.cookie, self.keywords, self.lang, self.country);
+        client_with_category.response = Self::send(resp);
+        
+        client_with_category
+    }
+
+    fn build_with_category(
+        client_builder: reqwest::blocking::Client,
+        lang: &'static str,
+        country: &'static str,
+        keywords: &'static str,
+        category: u8,
+    ) -> RequestBuilder {
+        let url = Url::parse(Self::EXPLORE_ENDPOINT).unwrap();
+        let comparison_item = format!(
+            "{{'comparisonItem':[{{
+                    'keyword':'{}',
+                    'geo':'{}',
+                    'time':'today 12-m'
+                }}],
+                'property':'',
+                'backend' : 'IZG',
+                'category':'{}',
+                
+            }}",
+            keywords, country, category
+        );
+
+        client_builder.get(url).query(&[
+            ("hl", lang),
+            ("geo", country),
+            ("tz", "-120"),
+            ("req", &comparison_item),
+            ("tz", "-120"),
+        ])
+    }
+
+    fn build(
+        client_builder: reqwest::blocking::Client,
+        lang: &'static str,
+        country: &'static str,
+        keywords: &'static str,
+    ) -> RequestBuilder {
+        let url = Url::parse(Self::EXPLORE_ENDPOINT).unwrap();
+        let comparison_item = format!(
+            "{{'comparisonItem':[{{
+                    'keyword':'{}',
+                    'geo':'{}',
+                    'time':'today 12-m'
+                }}],
+                'category':0,
+                'property':''
+            }}",
+            keywords, country
+        );
+
+        client_builder.get(url).query(&[
+            ("hl", lang),
+            ("geo", country),
+            ("tz", "-120"),
+            ("req", &comparison_item),
+            ("tz", "-120"),
+        ])
+    }
+
+    fn send(resp: RequestBuilder) -> Value {
+        let resp = resp.send();
+
+        let resp = match resp {
+            Ok(resp) => resp,
+            Err(error) => panic!("Can't get client response: {:?}", error),
+        };
+
+        let body = resp.text().unwrap();
+        let clean_response = utils::sanitize_response(&body, Self::BAD_CHARACTER).to_string();
+
+        serde_json::from_str(clean_response.as_str()).unwrap()
+    }
+}

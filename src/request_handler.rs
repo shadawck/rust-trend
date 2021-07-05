@@ -3,7 +3,7 @@ use crate::related_queries::RelatedQueries;
 use crate::related_topics::RelatedTopics;
 
 use crate::utils;
-use reqwest::blocking::RequestBuilder;
+use reqwest::{blocking::RequestBuilder};
 use reqwest::Url;
 use serde_json::{Result, Value};
 
