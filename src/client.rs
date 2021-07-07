@@ -1,6 +1,6 @@
 use std::str;
 
-use crate::{country::Country, lang::Lang, property::Property, utils};
+use crate::{country::Country, keywords::Keywords, lang::Lang, property::Property, utils};
 use chrono::{Date, Utc};
 use reqwest::{blocking::ClientBuilder, header, Url};
 use serde_json::Value;
@@ -10,7 +10,7 @@ pub struct Client {
     pub client_builder: reqwest::blocking::Client,
     pub cookie: &'static str,
     pub country: Country,
-    pub keywords: &'static str,
+    pub keywords: Keywords,
     pub lang: Lang,
     pub property: Property,
     pub time: String,
@@ -38,12 +38,7 @@ impl Client {
     const EXPLORE_ENDPOINT: &'static str = "https://trends.google.com/trends/api/explore";
     const BAD_CHARACTER: usize = 4;
 
-    pub fn new(
-        cookie: &'static str,
-        keywords: &'static str,
-        lang: Lang,
-        country: Country,
-    ) -> Self {
+    pub fn new(cookie: &'static str, keywords: Keywords, lang: Lang, country: Country) -> Self {
         let mut headers = header::HeaderMap::new();
         headers.insert("Cookie", header::HeaderValue::from_static(cookie));
         let client_builder = ClientBuilder::new().default_headers(headers).build();
@@ -80,8 +75,7 @@ impl Client {
         self
     }
 
-    pub fn with_date(mut self, start_date: Date<Utc>, end_date : Date<Utc>) -> Self {
-
+    pub fn with_date(mut self, start_date: Date<Utc>, end_date: Date<Utc>) -> Self {
         fn convert(date: Date<Utc>) -> String {
             date.format("%Y-%m-%d").to_string()
         }
@@ -100,19 +94,7 @@ impl Client {
 
     pub fn build(mut self) -> Self {
         let url = Url::parse(Self::EXPLORE_ENDPOINT).unwrap();
-        let comparison_item = format!(
-            "{{'comparisonItem':[{{
-                    'keyword':'{}',
-                    'geo':'{}',
-                    'time':'{}'
-                }}],
-                'category':{},
-                'property':'{}'
-            }}",
-            self.keywords, self.country, self.time, self.category, self.property
-        );
-
-        println!("{}", comparison_item);
+        let comparison_item = self.build_comparison_item();
 
         let resp = self
             .client_builder
@@ -136,5 +118,30 @@ impl Client {
 
         self.response = serde_json::from_str(clean_response.as_str()).unwrap();
         self
+    }
+
+    fn build_comparison_item(&self) -> String {
+        let mut comparison_item = String::new();
+        let keys_it = self.keywords.keywords.iter();
+
+        for key in keys_it {
+            let index_value = format!(
+                "{{
+                    'keyword':'{}',
+                    'geo':'{}',
+                    'time':'{}'
+                }},",
+                key, self.country, self.time
+            );
+
+            comparison_item.push_str(&index_value);
+        }
+
+        format!(
+            "{{ 'comparisonItem': [{}], 'category':{}, 'property':'{}' }}",
+            comparison_item.as_str(),
+            self.category,
+            self.property
+        )
     }
 }

@@ -1,4 +1,6 @@
-#[derive(Debug)]
+use std::fmt::{Display, Formatter, Result};
+
+#[derive(Default, Debug, Clone)]
 pub struct Keywords {
     pub keywords : Vec<&'static str>
 }
@@ -20,6 +22,12 @@ impl From<&'static str > for Keywords {
     }
 }
 
+impl Into<String> for Keywords{
+    fn into(self) -> String {
+        self.keywords.join(",")
+    }
+}
+
 fn check_keywords(keys : Vec<&'static str>) ->  Vec<&'static str> {
     if keys.len() == 0 {
         panic!("At least one keyword is required !")
@@ -28,4 +36,10 @@ fn check_keywords(keys : Vec<&'static str>) ->  Vec<&'static str> {
         panic!("The maximum is 5 keywords !")
     }
     keys
+}
+
+impl Display for Keywords {
+    fn fmt(&self, f: &mut Formatter) -> Result {
+        write!(f, "{:#?}", self.keywords)
+    }
 }
