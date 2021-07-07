@@ -1,4 +1,7 @@
+use std::str;
+
 use crate::{country::Country, lang::Lang, property::Property, utils};
+use chrono::{Date, Utc};
 use reqwest::{blocking::ClientBuilder, header, Url};
 use serde_json::Value;
 
@@ -10,7 +13,7 @@ pub struct Client {
     pub keywords: &'static str,
     pub lang: Lang,
     pub property: Property,
-    pub time: &'static str,
+    pub time: String,
     pub category: u16,
     pub response: Value,
 }
@@ -22,7 +25,7 @@ impl Default for Client {
             cookie: Default::default(),
             response: serde_json::from_str("{}").unwrap(),
             keywords: Default::default(),
-            time: "today 12-m",
+            time: "today 12-m".to_string(),
             country: Country::new("ALL"),
             property: Property::new("web"),
             lang: Lang::new("en"),
@@ -72,12 +75,23 @@ impl Client {
         self
     }
 
-    pub fn with_period(mut self, period: &'static str) -> Self {
+    pub fn with_period(mut self, period: String) -> Self {
         self.time = period;
         self
     }
 
-    pub fn with_filter(mut self, category: u16, property: Property, time: &'static str) -> Self {
+    pub fn with_date(mut self, start_date: Date<Utc>, end_date : Date<Utc>) -> Self {
+
+        fn convert(date: Date<Utc>) -> String {
+            date.format("%Y-%m-%d").to_string()
+        }
+
+        let custom_period = format!("{} {}", convert(start_date), convert(end_date));
+        self.time = custom_period;
+        self
+    }
+
+    pub fn with_filter(mut self, category: u16, property: Property, time: String) -> Self {
         self.category = category;
         self.property = property;
         self.time = time;
@@ -90,13 +104,15 @@ impl Client {
             "{{'comparisonItem':[{{
                     'keyword':'{}',
                     'geo':'{}',
-                    'time':'today 12-m'
+                    'time':'{}'
                 }}],
-                'category': {},
+                'category':{},
                 'property':'{}'
             }}",
-            self.keywords, self.country, self.category, self.property
+            self.keywords, self.country, self.time, self.category, self.property
         );
+
+        println!("{}", comparison_item);
 
         let resp = self
             .client_builder

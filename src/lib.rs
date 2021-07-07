@@ -10,6 +10,7 @@ pub mod lang;
 pub mod country;
 pub mod category;
 pub mod property;
+pub mod keywords;
 
 mod request_handler;
 mod utils;
@@ -26,3 +27,4 @@ pub use lang::Lang;
 pub use country::Country;
 pub use category::Category;
 pub use property::Property;
+pub use keywords::Keywords;
