@@ -1,5 +1,5 @@
 use crate::{client::*, request_handler::Query};
-use serde_json::{Result, Value};
+use serde_json::{Value};
 
 // Correpond to Multiline request => Google trend interest curve
 #[derive(Debug)]

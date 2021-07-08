@@ -60,6 +60,11 @@ impl Client {
         }
     }
 
+    pub fn with_keywords(mut self, keywords: Keywords) -> Self{
+        self.keywords = keywords;
+        self
+    }
+
     pub fn with_category(mut self, category: u16) -> Self {
         self.category = category;
         self

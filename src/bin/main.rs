@@ -13,7 +13,7 @@ fn main() {
     let start_date: Date<Utc> = Utc.ymd(2019, 7, 30);
     let end_date: Date<Utc> = Utc.ymd(2020, 7, 30);
 
-    let keywords = Keywords::new(vec!["baguette", "fromage", "foie gras"]);
+    let keywords = Keywords::new(vec!["baguette", "foie gras"]);
     let _keys2 = Keywords::from("baguette,fromage");
 
     let _google_client = Client::new(my_cookie, keywords, lang, country)
@@ -27,8 +27,8 @@ fn main() {
     //let _region_interest = RegionInterest::new(_google_client.clone()).get_for("baguette");
     //println!("{}", _region_interest);
     
-    //let _related_topics = RelatedTopics::new(_google_client.clone()).get();
-    //println!("{}", _related_topics);
-    let _related_queries = RelatedQueries::new(_google_client.clone()).get();
-    println!("{}", _related_queries);
+    let _related_topics = RelatedTopics::new(_google_client.clone()).get();
+    println!("{}", _related_topics);
+    //let _related_queries = RelatedQueries::new(_google_client.clone()).get();
+    //println!("{}", _related_queries);
 }

@@ -1,11 +1,11 @@
-use crate::region_interest::RegionInterest;
+use crate::{Keywords, region_interest::RegionInterest};
 use crate::related_queries::RelatedQueries;
 use crate::related_topics::RelatedTopics;
 
 use crate::utils;
 use reqwest::blocking::RequestBuilder;
 use reqwest::Url;
-use serde_json::{Value};
+use serde_json::Value;
 
 use crate::{client::Client, search_interest::SearchInterest};
 
@@ -26,7 +26,6 @@ pub trait Query {
             };
             let body = resp.text().unwrap();
             let clean_response = utils::sanitize_response(&body, BAD_CHARACTER);
-            
             responses.push(serde_json::from_str(clean_response).unwrap())
         }
         responses
@@ -35,7 +34,8 @@ pub trait Query {
 
 impl Query for SearchInterest {
     fn build_request(&self) -> Vec<RequestBuilder> {
-        const MULTILINE_ENDPOINT: &'static str = "https://trends.google.com/trends/api/widgetdata/multiline";
+        const MULTILINE_ENDPOINT: &'static str =
+            "https://trends.google.com/trends/api/widgetdata/multiline";
         let url = Url::parse(MULTILINE_ENDPOINT).unwrap();
 
         let request = self.client.response["widgets"][0]["request"].to_string();
@@ -49,21 +49,36 @@ impl Query for SearchInterest {
 
 impl Query for RegionInterest {
     fn build_request(&self) -> Vec<RequestBuilder> {
-        const COMPAREDGEO_ENDPOINT: &'static str = "https://trends.google.com/trends/api/widgetdata/comparedgeo";
+        const COMPAREDGEO_ENDPOINT: &'static str =
+            "https://trends.google.com/trends/api/widgetdata/comparedgeo";
         let url = Url::parse(COMPAREDGEO_ENDPOINT).unwrap();
-        let mut requests : Vec<RequestBuilder> = Vec::new();
+        let mut requests: Vec<RequestBuilder> = Vec::new();
 
         let keywords_nb = self.client.keywords.keywords.len();
 
         let request = self.client.response["widgets"][1]["request"].to_string();
-        let token = self.client.response["widgets"][1]["token"].to_string().replace("\"", "");
+        let token = self.client.response["widgets"][1]["token"]
+            .to_string()
+            .replace("\"", "");
 
-        requests.push(build_query(self.client.clone(), url.clone(), request, token));
+        requests.push(build_query(
+            self.client.clone(),
+            url.clone(),
+            request,
+            token,
+        ));
 
-        for i in 1..keywords_nb+1{
-            let request = self.client.response["widgets"][i*3]["request"].to_string();
-            let token = self.client.response["widgets"][i*3]["token"].to_string().replace("\"", "");
-            requests.push(build_query(self.client.clone(), url.clone(), request, token));
+        for i in 1..keywords_nb + 1 {
+            let request = self.client.response["widgets"][i * 3]["request"].to_string();
+            let token = self.client.response["widgets"][i * 3]["token"]
+                .to_string()
+                .replace("\"", "");
+            requests.push(build_query(
+                self.client.clone(),
+                url.clone(),
+                request,
+                token,
+            ));
         }
 
         requests
@@ -75,13 +90,31 @@ impl Query for RelatedTopics {
         const RELATED_SEARCH_ENDPOINT: &'static str =
             "https://trends.google.com/trends/api/widgetdata/relatedsearches";
         let url = Url::parse(RELATED_SEARCH_ENDPOINT).unwrap();
+        let keywords = self.client.keywords.keywords.clone();
+        let mut requests: Vec<RequestBuilder> = Vec::new();
 
-        let request = self.client.response["widgets"][2]["request"].to_string();
-        let token = self.client.response["widgets"][2]["token"]
-            .to_string()
-            .replace("\"", "");
+        if keywords.len() == 1 {
+            let request = self.client.response["widgets"][2]["request"].to_string();
+            let token = self.client.response["widgets"][2]["token"]
+                .to_string()
+                .replace("\"", "");
+            vec![build_query(self.client.clone(), url, request, token)]
+        } else {
+            for i in 0..keywords.len() {
+                let individual_keyword = Keywords::new(vec![keywords[i]]);
+                
+                let new_client = self.client.clone().with_keywords(individual_keyword).build();
 
-        vec![build_query(self.client.clone(), url, request, token)]
+                let request = new_client.response["widgets"][2]["request"].to_string();
+                let token = new_client.response["widgets"][2]["token"]
+                    .to_string()
+                    .replace("\"", "");
+                
+                requests.push(build_query(new_client, url.clone(), request, token))
+            }
+
+            requests
+        }
     }
 }
 
@@ -91,13 +124,20 @@ impl Query for RelatedQueries {
             "https://trends.google.com/trends/api/widgetdata/relatedsearches";
         let url = Url::parse(RELATED_QUERY_ENDPOINT).unwrap();
 
-        let mut requests : Vec<RequestBuilder> = Vec::new();
+        let mut requests: Vec<RequestBuilder> = Vec::new();
         let keywords_nb = self.client.keywords.keywords.len();
 
-        for i in 1..keywords_nb+1{
-            let request = self.client.response["widgets"][i*3+1]["request"].to_string();
-            let token = self.client.response["widgets"][i*3+1]["token"].to_string().replace("\"", "");
-            requests.push(build_query(self.client.clone(), url.clone(), request, token));
+        for i in 1..keywords_nb + 1 {
+            let request = self.client.response["widgets"][i * 3 + 1]["request"].to_string();
+            let token = self.client.response["widgets"][i * 3 + 1]["token"]
+                .to_string()
+                .replace("\"", "");
+            requests.push(build_query(
+                self.client.clone(),
+                url.clone(),
+                request,
+                token,
+            ));
         }
         requests
     }
