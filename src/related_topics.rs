@@ -23,7 +23,7 @@ impl RelatedTopics {
         }
     }
 
-    pub fn get(&self) -> Result<Value> {
-        self.send_request()
+    pub fn get(&self) -> Value {
+        self.send_request()[0].clone()
     }
 }
