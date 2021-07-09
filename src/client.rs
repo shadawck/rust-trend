@@ -1,6 +1,6 @@
 use std::str;
 
-use crate::{country::Country, keywords::Keywords, lang::Lang, property::Property, utils};
+use crate::{Category, country::Country, keywords::Keywords, lang::Lang, property::Property, utils};
 use chrono::{Date, Utc};
 use reqwest::{blocking::ClientBuilder, header, Url};
 use serde_json::Value;
@@ -14,7 +14,7 @@ pub struct Client {
     pub lang: Lang,
     pub property: Property,
     pub time: String,
-    pub category: u16,
+    pub category: Category,
     pub response: Value,
 }
 
@@ -29,7 +29,7 @@ impl Default for Client {
             country: Country::new("ALL"),
             property: Property::new("web"),
             lang: Lang::new("en"),
-            category: 0,
+            category: Category::new(0),
         }
     }
 }
@@ -65,7 +65,7 @@ impl Client {
         self
     }
 
-    pub fn with_category(mut self, category: u16) -> Self {
+    pub fn with_category(mut self, category: Category) -> Self {
         self.category = category;
         self
     }
@@ -90,7 +90,7 @@ impl Client {
         self
     }
 
-    pub fn with_filter(mut self, category: u16, property: Property, time: String) -> Self {
+    pub fn with_filter(mut self, category: Category, property: Property, time: String) -> Self {
         self.category = category;
         self.property = property;
         self.time = time;
