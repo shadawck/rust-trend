@@ -1,6 +1,6 @@
-use crate::{Keywords, region_interest::RegionInterest};
 use crate::related_queries::RelatedQueries;
 use crate::related_topics::RelatedTopics;
+use crate::{region_interest::RegionInterest, Keywords};
 
 use crate::utils;
 use reqwest::blocking::RequestBuilder;
@@ -102,14 +102,16 @@ impl Query for RelatedTopics {
         } else {
             for i in 0..keywords.len() {
                 let individual_keyword = Keywords::new(vec![keywords[i]]);
-                
-                let new_client = self.client.clone().with_keywords(individual_keyword).build();
 
+                let new_client = self
+                    .client
+                    .clone()
+                    .with_keywords(individual_keyword)
+                    .build();
                 let request = new_client.response["widgets"][2]["request"].to_string();
                 let token = new_client.response["widgets"][2]["token"]
                     .to_string()
                     .replace("\"", "");
-                
                 requests.push(build_query(new_client, url.clone(), request, token))
             }
 

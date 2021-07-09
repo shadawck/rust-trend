@@ -1,7 +1,7 @@
 use core::panic;
 use std::fmt;
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone)]
 pub struct Lang {
     lang: &'static str,
 }
@@ -23,12 +23,12 @@ impl Lang {
 
     fn check_lang(lang: &'static str) -> &'static str {
         match Self::SUPPORTED_LANG.contains(&lang) {
-            true  => lang,
+            true => lang,
             false => panic!("Unsupported langage !"),
         }
     }
 
-    pub fn as_str(&self) -> &'static str{
+    pub fn as_str(&self) -> &'static str {
         self.lang
     }
 

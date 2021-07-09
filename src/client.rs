@@ -60,7 +60,7 @@ impl Client {
         }
     }
 
-    pub fn with_keywords(mut self, keywords: Keywords) -> Self{
+    pub fn with_keywords(mut self, keywords: Keywords) -> Self {
         self.keywords = keywords;
         self
     }

@@ -1,6 +1,6 @@
 use serde::Deserialize;
 
-#[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Deserialize)]
+#[derive(Debug, Clone, Deserialize)]
 pub struct Category {
     name: String,
     id: u16,
