@@ -12,6 +12,7 @@ pub mod keywords;
 pub mod lang;
 pub mod property;
 
+mod errors;
 mod request_handler;
 mod utils;
 

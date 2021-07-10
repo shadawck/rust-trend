@@ -1,7 +1,7 @@
 use core::panic;
 use std::fmt;
 
-#[derive(Debug, Clone)]
+#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash, Debug, Default)]
 pub struct Property {
     property: &'static str,
 }

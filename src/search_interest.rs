@@ -4,7 +4,7 @@ use crate::request_handler::Query;
 use serde_json::Value;
 
 // Correpond to Multiline request => Google trend interest curve
-#[derive(Debug, Clone)]
+#[derive(Clone, Debug, Default)]
 pub struct SearchInterest {
     pub client: Client,
 }

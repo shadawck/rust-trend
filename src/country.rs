@@ -1,6 +1,8 @@
 use std::fmt;
 
-#[derive(Debug, Clone)]
+use crate::errors::errors::UnsupportedCategoryError;
+
+#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash, Debug, Default)]
 pub struct Country {
     country: &'static str,
 }
@@ -34,12 +36,14 @@ impl Country {
 
     fn check_country(country: &'static str) -> &'static str {
         match Self::SUPPORTED_COUNTRY.contains(&country) {
-            true  => if country.eq("ALL"){
-                ""
-            }else{
-                country
-            },
-            false => panic!("Unsupported country ! Check available country on google trend or use list() to list all available country"),
+            true => {
+                if country.eq("ALL") {
+                    ""
+                } else {
+                    country
+                }
+            }
+            false => Err(UnsupportedCategoryError).unwrap(),
         }
     }
 

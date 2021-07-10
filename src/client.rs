@@ -1,11 +1,13 @@
 use std::str;
 
-use crate::{Category, country::Country, keywords::Keywords, lang::Lang, property::Property, utils};
+use crate::{
+    country::Country, keywords::Keywords, lang::Lang, property::Property, utils, Category,
+};
 use chrono::{Date, Utc};
 use reqwest::{blocking::ClientBuilder, header, Url};
 use serde_json::Value;
 
-#[derive(Debug, Clone)]
+#[derive(Clone, Debug)]
 pub struct Client {
     pub client_builder: reqwest::blocking::Client,
     pub cookie: &'static str,

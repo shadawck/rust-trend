@@ -1,28 +1,33 @@
-use std::fmt::{Display, Formatter, Result};
 use serde::Deserialize;
 use serde_json::Value;
+use std::fmt::{Display, Formatter, Result};
 
-#[derive(Default, Debug, Clone, Deserialize)]
+#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash, Debug, Default, Deserialize)]
 pub struct Category {
     id: u16,
 }
 
 impl Category {
     pub fn new(id: u16) -> Category {
-        Self { 
-            id : Self::check_category(id)
+        Self {
+            id: Self::check_category(id),
         }
     }
 
     fn check_category(id: u16) -> u16 {
-        let value : Value = serde_json::from_str(Self::CONTENT).unwrap();
-        let ids = value.as_array().unwrap().into_iter().filter(|ident| ident["id"] == id).collect::<Vec<&Value>>();
+        let value: Value = serde_json::from_str(Self::CONTENT).unwrap();
+        let ids = value
+            .as_array()
+            .unwrap()
+            .into_iter()
+            .filter(|ident| ident["id"] == id)
+            .collect::<Vec<&Value>>();
 
         match ids.len() {
             0 => panic!("Unsupported category"),
-            _ => ids[0]
+            _ => ids[0],
         };
-        
+
         id
     }
 
