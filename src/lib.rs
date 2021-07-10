@@ -11,6 +11,7 @@ pub mod country;
 pub mod keywords;
 pub mod lang;
 pub mod property;
+pub mod cookie;
 
 mod errors;
 mod request_handler;

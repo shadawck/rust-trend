@@ -1,8 +1,4 @@
-use std::str;
-
-use crate::{
-    country::Country, keywords::Keywords, lang::Lang, property::Property, utils, Category,
-};
+use crate::{Category, cookie::Cookie, country::Country, keywords::Keywords, lang::Lang, property::Property, utils};
 use chrono::{Date, Utc};
 use reqwest::{blocking::ClientBuilder, header, Url};
 use serde_json::Value;
@@ -10,7 +6,7 @@ use serde_json::Value;
 #[derive(Clone, Debug)]
 pub struct Client {
     pub client_builder: reqwest::blocking::Client,
-    pub cookie: &'static str,
+    pub cookie: Cookie,
     pub country: Country,
     pub keywords: Keywords,
     pub lang: Lang,
@@ -24,7 +20,7 @@ impl Default for Client {
     fn default() -> Client {
         Client {
             client_builder: Default::default(),
-            cookie: Default::default(),
+            cookie: Cookie::new(),
             response: serde_json::from_str("{}").unwrap(),
             keywords: Default::default(),
             time: "today 12-m".to_string(),
@@ -40,9 +36,10 @@ impl Client {
     const EXPLORE_ENDPOINT: &'static str = "https://trends.google.com/trends/api/explore";
     const BAD_CHARACTER: usize = 4;
 
-    pub fn new(cookie: &'static str, keywords: Keywords, lang: Lang, country: Country) -> Self {
+    pub fn new(keywords: Keywords, lang: Lang, country: Country) -> Self {
         let mut headers = header::HeaderMap::new();
-        headers.insert("Cookie", header::HeaderValue::from_static(cookie));
+        headers = Cookie::new().add_to_header(headers);
+        
         let client_builder = ClientBuilder::new().default_headers(headers).build();
         let client_builder = match client_builder {
             Ok(client_builder) => client_builder,
@@ -55,7 +52,6 @@ impl Client {
         Self {
             client_builder,
             country,
-            cookie,
             keywords,
             lang,
             ..Default::default()
