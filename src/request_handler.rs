@@ -146,7 +146,7 @@ impl Query for RelatedQueries {
 }
 
 fn build_query(client: Client, url: Url, request: String, token: String) -> RequestBuilder {
-    client.client_builder.get(url).query(&[
+    client.client.get(url).query(&[
         ("hl", client.lang.as_str()),
         ("tz", "-120"),
         ("req", request.as_str()),

@@ -1,5 +1,6 @@
 /// Lib mod
 pub mod client;
+pub mod client_async;
 pub mod region_interest;
 pub mod search_interest;
 

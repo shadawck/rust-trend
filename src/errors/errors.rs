@@ -63,6 +63,7 @@ impl Display for KeywordMinCapacityError {
     }
 }
 
+#[allow(dead_code)]
 pub enum KeywordsError {
     KeywordMaxCapacityError,
     KeywordMinCapacityError,

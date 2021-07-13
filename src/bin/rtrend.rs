@@ -15,9 +15,10 @@ fn main() {
 
     let keywords = Keywords::new(vec!["baguette", "foie gras"]);
 
-    let _google_client = Client::new(keywords, lang, country)
+    let _google_client = Client::new(keywords, country)
         .with_property(property)
         .with_date(start_date, end_date)
+        .with_lang(lang)
         .build();
 
     Category::new(184);
@@ -30,5 +31,4 @@ fn main() {
     //println!("{}", _related_topics);
     let _related_queries = RelatedQueries::new(_google_client.clone()).get();
     //println!("{}", _related_queries);
-    
 }

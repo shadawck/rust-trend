@@ -1,5 +1,3 @@
-use std::io::Read;
-
 use reqwest::header::{HeaderMap, SET_COOKIE};
 use reqwest::header;
 
