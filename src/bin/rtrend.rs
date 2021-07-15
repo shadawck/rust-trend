@@ -19,13 +19,12 @@ fn main() {
         .with_date(start_date, end_date)
         .with_lang(lang)
         .build();
-
-    Category::new(184);
     
-    let _search_interest = SearchInterest::new(_google_client.clone()).get();
-    println!("{}", _search_interest);
+    //let _search_interest = SearchInterest::new(_google_client.clone()).get();
+    //println!("{}", _search_interest);
     let _region_interest = RegionInterest::new(_google_client.clone()).get_for("baguette");
-    //println!("{}", _region_interest);
+    let _interest = RegionInterest::new(_google_client.clone()).get();
+    println!("{}", _interest);
     let _related_topics = RelatedTopics::new(_google_client.clone()).get();
     //println!("{}", _related_topics);
     let _related_queries = RelatedQueries::new(_google_client.clone()).get();
