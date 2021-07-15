@@ -2,6 +2,7 @@ use std::fmt;
 
 use crate::errors::errors::UnsupportedCategoryError;
 
+/// Represent Google Trend Country
 #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash, Debug, Default)]
 pub struct Country {
     country: &'static str,
@@ -28,6 +29,23 @@ impl Country {
         "SB", "SM", "TK", "TO", "TV", "UM", "VA", "VC", "VU", "WF", "WS",
     ];
 
+    /// Create a new Country.
+    /// 
+    /// Returns a Country instance.
+    /// 
+    /// # Example
+    /// ```rust
+    /// use rtrend::Country;
+    /// 
+    /// let country = Country::new("FR");
+    /// ```
+    /// 
+    /// # Panics
+    /// An unsupported Country id will panic.
+    /// ```rust,should_panic
+    /// use rtrend::Country;
+    /// let country = Country::new("ZC");
+    /// ```
     pub fn new(country: &'static str) -> Country {
         Country {
             country: Self::check_country(country),
@@ -47,10 +65,12 @@ impl Country {
         }
     }
 
+    /// List supported countries
     pub fn list() {
         println!("{:#?}", Self::SUPPORTED_COUNTRY);
     }
 
+    /// Convert country to &str
     pub fn as_str(&self) -> &'static str {
         self.country
     }

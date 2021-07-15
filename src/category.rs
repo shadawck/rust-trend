@@ -2,12 +2,31 @@ use serde::Deserialize;
 use serde_json::Value;
 use std::fmt::{Display, Formatter, Result};
 
+/// Represent Google Trend Categories.
 #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash, Debug, Default, Deserialize)]
 pub struct Category {
     id: u16,
 }
 
 impl Category {
+    /// Create a new Category.
+    /// 
+    /// Returns a Category instance.
+    /// 
+    /// # Example
+    /// ```rust
+    /// use rtrend::Category;
+    /// 
+    /// let category = Category::new(76);
+    /// ```
+    /// 
+    /// # Panics
+    /// An unsupported Category id will make the program to panic
+    /// ```rust,should_panic
+    /// use rtrend::Category;
+    /// // 1800 is an unsupported category id
+    /// let category = Category::new(1800);
+    /// ```
     pub fn new(id: u16) -> Category {
         Self {
             id: Self::check_category(id),
@@ -31,6 +50,7 @@ impl Category {
         id
     }
 
+    /// Category supported by Google Trend
     const CONTENT: &'static str = r#"[
         { "name": "All", "id": 0 },
         { "name": "Celebrities & Entertainment News", "id": 184 },

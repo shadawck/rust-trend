@@ -10,6 +10,25 @@ impl Property {
     const SUPPORTED_PROPERTY: &'static [&'static str] =
         &["web", "images", "news", "froogle", "youtube"];
 
+    /// Create a new Property.
+    ///
+    /// The available property are :
+    /// - `web`, `images`, `news`, `froogle` (Google Shopping), and `youtube`
+    ///
+    /// Returns a Property instance.
+    ///
+    /// # Example
+    /// ```rust
+    /// use rtrend::Property;
+    /// let property = Property::new("news");
+    /// ```
+    ///
+    /// # Panics
+    /// An unsupported Property will panic.
+    /// ```rust,should_panic
+    /// use rtrend::Property;
+    /// let property = Property::new("maps");
+    /// ```
     pub fn new(property: &'static str) -> Property {
         Property {
             property: Self::check_property(property),
@@ -29,6 +48,7 @@ impl Property {
         }
     }
 
+    /// List supported properties
     pub fn list() {
         println!("{:#?}", Self::SUPPORTED_PROPERTY);
     }

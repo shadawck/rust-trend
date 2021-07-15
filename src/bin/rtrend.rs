@@ -1,5 +1,4 @@
-extern crate rtrend;
-
+use rtrend;
 use chrono::prelude::*;
 use rtrend::{country::Country, lang::Lang, property::Property, keywords::Keywords, *};
 

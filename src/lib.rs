@@ -1,9 +1,9 @@
 /// Lib mod
 pub mod client;
 pub mod client_async;
+
 pub mod region_interest;
 pub mod search_interest;
-
 pub mod related_queries;
 pub mod related_topics;
 
@@ -12,17 +12,17 @@ pub mod country;
 pub mod keywords;
 pub mod lang;
 pub mod property;
-pub mod cookie;
 
+mod cookie;
 mod errors;
 mod request_handler;
 mod utils;
 
 /// Path shortcut
 pub use client::Client;
+
 pub use region_interest::RegionInterest;
 pub use search_interest::SearchInterest;
-
 pub use related_queries::RelatedQueries;
 pub use related_topics::RelatedTopics;
 

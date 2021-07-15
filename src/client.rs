@@ -19,14 +19,18 @@ pub struct Client {
 }
 
 /// Default value for client
+/// 
+/// Returns a Default Client 
+/// 
 /// By default, 
 /// - The Period, the request is on, is 1 year
 /// - The Country is all the countries supported by google trend
 /// - The Langage is English
 /// - The Category is 0, so the request aggregate result of Google Search
 /// - The response is empty (but valid json)
+/// 
+/// # Example
 /// ```rust 
-/// extern crate rtrend;
 /// use rtrend::{Client, Keywords, Country};
 /// 
 /// let keywords = Keywords::new(vec!["rust"]);
@@ -54,11 +58,12 @@ impl Client {
     const EXPLORE_ENDPOINT: &'static str = "https://trends.google.com/trends/api/explore";
     const BAD_CHARACTER: usize = 4;
 
-    /// Create a new Client 
+    /// Create a new Client
+    /// 
     /// Returns a Client
-    /// Example
+    /// 
+    /// # Example
     /// ```rust
-    /// extern crate rtrend;
     /// use rtrend::{Client, Keywords, Country};
     /// 
     /// let keywords = Keywords::new(vec!["rust"]);
@@ -87,10 +92,11 @@ impl Client {
     }
 
     /// Set keywords and replace the ones setup during the client creation.
+    /// 
     /// Returns a client instance
     /// 
+    /// # Example
     /// ```rust
-    /// extern crate rtrend;
     /// use rtrend::{Client, Keywords, Country};
     /// 
     /// let keywords = Keywords::new(vec!["rust"]);
@@ -107,10 +113,13 @@ impl Client {
         self
     }
     /// Set in which langage the response will be. The input need to be set in lowercase.
+    /// 
     /// By default, the response is set to english (en). 
+    /// 
     /// Returns a client instance.
+    /// 
+    /// # Example
     /// ```rust
-    /// extern crate rtrend;
     /// use rtrend::{Client, Keywords, Country, Lang};
     /// 
     /// let keywords = Keywords::new(vec!["rust"]);
@@ -125,10 +134,13 @@ impl Client {
     }
 
     /// Set the category google trend will search on.
+    /// 
     /// By default, any category is set.
+    /// 
     /// Returns a client instance.
+    /// 
+    /// # Example
     /// ```rust
-    /// extern crate rtrend;
     /// use rtrend::{Client, Keywords, Country, Category};
     /// 
     /// let keywords = Keywords::new(vec!["hacking"]);
@@ -143,12 +155,15 @@ impl Client {
     }
 
     /// Set the property google trend will search on.
+    /// 
     /// By default, the search will be made on Google Search (web)
     /// The available property are : 
     /// - `web`, `images`, `news`, `froogle` (Google Shopping), `youtube`
+    /// 
     /// Returns a client instance.
+    /// 
+    /// # Example 
     /// ```rust
-    /// extern crate rtrend;
     /// use rtrend::{Client, Keywords, Country, Property};
     /// 
     /// let keywords = Keywords::new(vec!["vlog"]);
@@ -163,12 +178,14 @@ impl Client {
     }
 
     /// Set the period google trend will search on.
-    /// Period are preset by google trend.
+    /// 
+    /// Period are preset set by Google Trend.
     /// By default, the search will be made on 1 year (starting by today).
     /// 
     /// Returns a client instance.
+    /// 
+    /// # Example
     /// ```rust
-    /// extern crate rtrend;
     /// use rtrend::{Client, Keywords, Country};
     /// 
     /// let keywords = Keywords::new(vec!["vlog"]);
@@ -185,8 +202,9 @@ impl Client {
     /// By default, the search will be made on 1 year (starting by today).
     /// 
     /// Returns a client instance.
+    /// 
+    /// #Example
     /// ```rust
-    /// extern crate rtrend;
     /// use rtrend::{Client, Keywords, Country};
     /// use chrono::prelude::*;
     /// 
@@ -208,10 +226,13 @@ impl Client {
     }
 
     /// Allow to set options in one shot.
+    /// 
     /// For now I don't think it's very useful but if it is, I will make it public
+    /// 
     /// Returns a client instance.
+    /// 
+    /// # Example
     /// ```rust
-    /// extern crate rtrend;
     /// use rtrend::{Client, Keywords, Country, Property, Category, Lang};
     /// 
     /// let keywords = Keywords::new(vec!["cat"]);
@@ -233,10 +254,12 @@ impl Client {
     }
 
     /// Build client and send request. 
+    /// 
     /// A response will be retrieve and available through the `response` field. 
     /// This field will serve for making next requests.
+    /// 
+    /// # Example
     /// ```rust
-    /// extern crate rtrend;
     /// use rtrend::{Client, Keywords, Country};
     /// 
     /// let keywords = Keywords::new(vec!["Cat"]);

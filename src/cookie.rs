@@ -1,5 +1,4 @@
-use reqwest::header::{HeaderMap, SET_COOKIE};
-use reqwest::header;
+use reqwest::header::{HeaderMap, HeaderValue, SET_COOKIE};
 
 #[derive(Debug, Default, Clone, PartialEq, Eq, PartialOrd, Ord)]
 pub struct Cookie {
@@ -13,7 +12,7 @@ impl Cookie {
         }
     }
 
-    pub fn get_new_cookie() -> String{
+    pub fn get_new_cookie() -> String {
         const COOKIE_HANDSHAKE: &str =
             "https://consent.google.com/s?continue=https://www.google.com/";
 
@@ -25,12 +24,12 @@ impl Cookie {
             .unwrap()
             .to_string()
             .split(" ")
-            .collect::<Vec<&str>>()[0].to_string()
-
+            .collect::<Vec<&str>>()[0]
+            .to_string()
     }
 
     pub fn add_to_header(&self, mut header: HeaderMap) -> HeaderMap {
-        header.insert("Cookie", header::HeaderValue::from_str(self.nid.as_str()).unwrap());
+        header.insert("Cookie", HeaderValue::from_str(self.nid.as_str()).unwrap());
         header
     }
 }

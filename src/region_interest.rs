@@ -3,6 +3,8 @@ use crate::request_handler::Query;
 use serde_json::Value;
 
 // Correpond to Multiline request => Google trend interest curve
+
+/// Represent Google Trend geo maps
 #[derive(Debug, Clone)]
 pub struct RegionInterest {
     pub client: Client,
@@ -13,10 +15,12 @@ impl RegionInterest {
         RegionInterest { client }
     }
 
+    /// 
     pub fn get(&self) -> Value {
         self.send_request()[0].clone()
     }
 
+    /// 
     pub fn get_for(&self, keyword: &str) -> Value {
         let index = self
             .client

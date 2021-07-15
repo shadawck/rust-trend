@@ -1,6 +1,7 @@
 use core::panic;
 use std::fmt;
 
+/// Represent all angage supported by google
 #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash, Debug, Default)]
 pub struct Lang {
     lang: &'static str,
@@ -15,6 +16,26 @@ impl Lang {
         "vi", "is", "cy", "id", "yi",
     ];
 
+    /// Create a new langage.
+    ///
+    /// For the moment, langage neec to be set un lowercase.
+    ///
+    /// Returns a Langage instance.
+    ///
+    /// # Example
+    /// ```rust
+    /// use rtrend::Lang;
+    ///
+    /// // The returned lang will be set to italian
+    /// let lang = Lang::new("it");
+    /// ```
+    ///
+    /// # Panics
+    /// An unsupported langage will panic.
+    /// ```rust,should_panic
+    /// use rtrend::Lang;
+    /// let lang = Lang::new("zc");
+    /// ```
     pub fn new(lang: &'static str) -> Lang {
         Lang {
             lang: Self::check_lang(lang),
@@ -28,10 +49,12 @@ impl Lang {
         }
     }
 
+    /// List supported langage
     pub fn as_str(&self) -> &'static str {
         self.lang
     }
 
+    /// Convert country to &str
     pub fn list() {
         println!("{:#?}", Self::SUPPORTED_LANG);
     }
