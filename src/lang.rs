@@ -18,22 +18,21 @@ impl Lang {
 
     /// Create a new langage.
     ///
-    /// For the moment, langage neec to be set un lowercase.
+    /// For the moment, langage need to be set in lowercase.
     ///
     /// Returns a Langage instance.
     ///
     /// # Example
-    /// ```rust
-    /// use rtrend::Lang;
-    ///
+    /// ```
+    /// # use rtrend::Lang;
     /// // The returned lang will be set to italian
     /// let lang = Lang::new("it");
     /// ```
     ///
     /// # Panics
     /// An unsupported langage will panic.
-    /// ```rust,should_panic
-    /// use rtrend::Lang;
+    /// ```should_panic
+    /// # use rtrend::Lang;
     /// let lang = Lang::new("zc");
     /// ```
     pub fn new(lang: &'static str) -> Lang {

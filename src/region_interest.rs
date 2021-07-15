@@ -19,15 +19,15 @@ impl RegionInterest {
         RegionInterest { client }
     }
 
-    /// Retrieve maps data for all keywords
+    /// Retrieve maps data for all keywords.
     ///
-    /// Retrieve data for all keywords set within the client
+    /// Retrieve data for all keywords set within the client.
     ///
-    /// Returns a JSON serde Value (serde_json::Value)
+    /// Returns a JSON serde Value (serde_json::Value).
     ///
-    /// #Example
+    /// # Example
     /// ```rust
-    /// use rtrend::{Country, Keywords, Client, region_interest::RegionInterest};
+    /// # use rtrend::{Country, Keywords, Client, region_interest::RegionInterest};
     /// let keywords = Keywords::new(vec!["hacker"]);
     /// let country = Country::new("US");
     /// let client = Client::new(keywords, country).build();
@@ -41,11 +41,11 @@ impl RegionInterest {
     /// Panic if the client have not been built.
     /// 
     /// ```rust,should_panic
-    /// use rtrend::{Country, Keywords, Client, region_interest::RegionInterest};
+    /// # use rtrend::{Country, Keywords, Client, region_interest::RegionInterest};
     /// let keywords = Keywords::new(vec!["hacker"]);
     /// let country = Country::new("US");
     /// 
-    /// // Client not build
+    /// // Client not built
     /// let client = Client::new(keywords, country);
     /// 
     /// let region_interest = RegionInterest::new(client).get();
@@ -54,15 +54,15 @@ impl RegionInterest {
         self.send_request()[0].clone()
     }
 
-    /// Retrieve maps data for a specific keywords
+    /// Retrieve maps data for a specific keywords.
     ///
     /// Retrieve the data for one keywords set within the client.
     ///
-    /// Returns a JSON serde Value (serde_json::Value)
+    /// Returns a JSON serde Value (serde_json::Value).
     ///
     /// # Example
-    /// ```rust
-    /// use rtrend::{Country, Keywords, Client, region_interest::RegionInterest};
+    /// ```
+    /// # use rtrend::{Country, Keywords, Client, region_interest::RegionInterest};
     /// let keywords = Keywords::new(vec!["PS4","XBOX","PC"]);
     /// let country = Country::new("ALL");
     /// let client = Client::new(keywords, country).build();
@@ -75,8 +75,8 @@ impl RegionInterest {
     /// # Panics
     /// Will panic if input keyword have not been set previously for the client.
     /// 
-    /// ```rust,should_panic
-    /// use rtrend::{Country, Keywords, Client, region_interest::RegionInterest};
+    /// ```should_panic
+    /// # use rtrend::{Country, Keywords, Client, region_interest::RegionInterest};
     /// let keywords = Keywords::new(vec!["PS4","XBOX","PC"]);
     /// let country = Country::new("ALL");
     /// 

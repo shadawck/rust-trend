@@ -15,18 +15,18 @@ impl Property {
     /// The available property are :
     /// - `web`, `images`, `news`, `froogle` (Google Shopping), and `youtube`
     ///
-    /// Returns a Property instance.
+    /// Returns a `Property` instance.
     ///
     /// # Example
-    /// ```rust
-    /// use rtrend::Property;
+    /// ```
+    /// # use rtrend::Property;
     /// let property = Property::new("news");
     /// ```
     ///
     /// # Panics
-    /// An unsupported Property will panic.
-    /// ```rust,should_panic
-    /// use rtrend::Property;
+    /// An unsupported `Property` will panic.
+    /// ```should_panic
+    /// # use rtrend::Property;
     /// let property = Property::new("maps");
     /// ```
     pub fn new(property: &'static str) -> Property {

@@ -14,16 +14,15 @@ impl Category {
     /// Returns a Category instance.
     /// 
     /// # Example
-    /// ```rust
-    /// use rtrend::Category;
-    /// 
+    /// ```
+    /// # use rtrend::Category;
     /// let category = Category::new(76);
     /// ```
     /// 
     /// # Panics
     /// An unsupported Category id will make the program to panic
-    /// ```rust,should_panic
-    /// use rtrend::Category;
+    /// ```should_panic
+    /// # use rtrend::Category;
     /// // 1800 is an unsupported category id
     /// let category = Category::new(1800);
     /// ```

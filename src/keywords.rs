@@ -22,15 +22,15 @@ impl Keywords {
     ///
     /// # Panics
     /// A vector of length greater than 5 will panic.
-    /// ```rust,should_panic
-    /// use rtrend::Keywords;
+    /// ```should_panic
+    /// # use rtrend::Keywords;
     /// let seven_dwarf = vec!["Bashful","Doc", "Dopey","Grumpy","Happy", "Sleepy", "Sneezy"];
     /// let keywords = Keywords::new(seven_dwarf);
     /// ```
     ///
     /// A vector without keywords will also panic
-    /// ```rust,should_panic
-    /// use rtrend::Keywords;
+    /// ```should_panic
+    /// # use rtrend::Keywords;
     /// let keywords = Keywords::new(vec![]);
     /// ```
     pub fn new(keywords: Vec<&'static str>) -> Self {

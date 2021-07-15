@@ -1,13 +1,8 @@
-use crate::related_queries::RelatedQueries;
-use crate::related_topics::RelatedTopics;
-use crate::{region_interest::RegionInterest, Keywords};
-
-use crate::utils;
-use reqwest::blocking::RequestBuilder;
-use reqwest::Url;
+use crate::{
+    utils, Client, Keywords, RegionInterest, RelatedQueries, RelatedTopics, SearchInterest,
+};
+use reqwest::{blocking::RequestBuilder, Url};
 use serde_json::Value;
-
-use crate::{client::Client, search_interest::SearchInterest};
 
 pub trait Query {
     // Build queries for all type of search

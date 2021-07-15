@@ -34,16 +34,15 @@ impl Country {
     /// Returns a Country instance.
     /// 
     /// # Example
-    /// ```rust
-    /// use rtrend::Country;
-    /// 
+    /// ```
+    /// # use rtrend::Country;
     /// let country = Country::new("FR");
     /// ```
     /// 
     /// # Panics
     /// An unsupported Country id will panic.
-    /// ```rust,should_panic
-    /// use rtrend::Country;
+    /// ```should_panic
+    /// # use rtrend::Country;
     /// let country = Country::new("ZC");
     /// ```
     pub fn new(country: &'static str) -> Country {
