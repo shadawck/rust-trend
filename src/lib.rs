@@ -1,4 +1,3 @@
-/// Lib mod
 pub mod client;
 pub mod client_async;
 
@@ -18,14 +17,12 @@ mod cookie;
 mod errors;
 mod utils;
 
-/// Path shortcut
-pub use client::Client;
 
+pub use client::Client;
 pub use region_interest::RegionInterest;
 pub use search_interest::SearchInterest;
 pub use related_queries::RelatedQueries;
 pub use related_topics::RelatedTopics;
-
 pub use category::Category;
 pub use country::Country;
 pub use keywords::Keywords;

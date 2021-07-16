@@ -1,6 +1,5 @@
-use rtrend;
 use chrono::prelude::*;
-use rtrend::{country::Country, lang::Lang, property::Property, keywords::Keywords, *};
+use rust_trend::{country::Country, lang::Lang, property::Property, keywords::Keywords, *};
 
 
 fn main() {
