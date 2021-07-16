@@ -1,6 +1,5 @@
 use chrono::prelude::*;
-use rust_trend::{country::Country, lang::Lang, property::Property, keywords::Keywords, *};
-
+use rtrend::*;
 
 fn main() {
 
@@ -19,13 +18,13 @@ fn main() {
         .with_lang(lang)
         .build();
     
-    //let _search_interest = SearchInterest::new(_google_client.clone()).get();
-    //println!("{}", _search_interest);
+    let _search_interest = SearchInterest::new(_google_client.clone()).get();
+    println!("{}", _search_interest);
     let _region_interest = RegionInterest::new(_google_client.clone()).get_for("baguette");
     let _interest = RegionInterest::new(_google_client.clone()).get();
     println!("{}", _interest);
     let _related_topics = RelatedTopics::new(_google_client.clone()).get();
-    //println!("{}", _related_topics);
+    println!("{}", _related_topics);
     let _related_queries = RelatedQueries::new(_google_client.clone()).get();
-    //println!("{}", _related_queries);
+    println!("{}", _related_queries);
 }

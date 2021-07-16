@@ -681,7 +681,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "rust-trend"
+name = "rtrend"
 version = "0.1.0"
 dependencies = [
  "chrono",

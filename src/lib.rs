@@ -17,7 +17,6 @@ mod cookie;
 mod errors;
 mod utils;
 
-
 pub use client::Client;
 pub use region_interest::RegionInterest;
 pub use search_interest::SearchInterest;
