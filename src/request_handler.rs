@@ -120,19 +120,27 @@ impl Query for RelatedQueries {
         let mut requests: Vec<RequestBuilder> = Vec::new();
         let keywords_nb = self.client.keywords.keywords.len();
 
-        for i in 1..keywords_nb + 1 {
-            let request = self.client.response["widgets"][i * 3 + 1]["request"].to_string();
-            let token = self.client.response["widgets"][i * 3 + 1]["token"]
+        if keywords_nb == 1 {
+            let request = self.client.response["widgets"][3]["request"].to_string();
+            let token = self.client.response["widgets"][3]["token"]
                 .to_string()
                 .replace("\"", "");
-            requests.push(build_query(
-                self.client.clone(),
-                url.clone(),
-                request,
-                token,
-            ));
+            vec![build_query(self.client.clone(), url, request, token)]
+        } else {
+            for i in 1..keywords_nb + 1 {
+                let request = self.client.response["widgets"][i * 3 + 1]["request"].to_string();
+                let token = self.client.response["widgets"][i * 3 + 1]["token"]
+                    .to_string()
+                    .replace("\"", "");
+                requests.push(build_query(
+                    self.client.clone(),
+                    url.clone(),
+                    request,
+                    token,
+                ));
+            }
+            requests
         }
-        requests
     }
 }
 

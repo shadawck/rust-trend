@@ -12,8 +12,8 @@ impl Keywords {
     ///
     /// Keywords vector is limited to a maximum of 5 keyword.
     ///
-    /// Returns a Keywords instance. 
-    /// 
+    /// Returns a Keywords instance.
+    ///
     /// # Example
     ///```rust
     /// use rtrend::Keywords;
@@ -28,7 +28,7 @@ impl Keywords {
     /// let keywords = Keywords::new(seven_dwarf);
     /// ```
     ///
-    /// A vector without keywords will also panic
+    /// A vector without keywords will also panic.
     /// ```should_panic
     /// # use rtrend::Keywords;
     /// let keywords = Keywords::new(vec![]);

@@ -15,8 +15,11 @@ pub struct RegionInterest {
 }
 
 impl RegionInterest {
-    pub fn new(client: Client) -> RegionInterest {
-        RegionInterest { client }
+    /// Create a `RegionInterest` Instance.
+    /// 
+    /// Returns a `RegionInterest` instance
+    pub fn new(client: Client) -> Self {
+        Self { client }
     }
 
     /// Retrieve maps data for all keywords.
@@ -27,7 +30,7 @@ impl RegionInterest {
     ///
     /// # Example
     /// ```rust
-    /// # use rtrend::{Country, Keywords, Client, region_interest::RegionInterest};
+    /// # use rtrend::{Country, Keywords, Client, RegionInterest};
     /// let keywords = Keywords::new(vec!["hacker"]);
     /// let country = Country::new("US");
     /// let client = Client::new(keywords, country).build();

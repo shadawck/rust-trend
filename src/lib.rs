@@ -13,9 +13,9 @@ pub mod keywords;
 pub mod lang;
 pub mod property;
 
+mod request_handler;
 mod cookie;
 mod errors;
-mod request_handler;
 mod utils;
 
 /// Path shortcut
