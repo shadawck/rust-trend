@@ -1,5 +1,7 @@
 # rust-trend
 
+![rust-trend](./google-trends-rust-api-little.png)
+
 **This lib is a work in progress**
 
 ## Overview
