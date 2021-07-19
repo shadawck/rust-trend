@@ -8,7 +8,7 @@
 Unofficial Rust API for interacting with Google Trend
 
 ## Documentation
-- [Examples Repository]("./examples")
+- [Examples Repository](./examples)
 - [API Documentation](https://docs.rs/rtrend)
 
 ## Example
