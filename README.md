@@ -77,13 +77,13 @@ println!("{}", region_interest);
 ```
 
 ### More example
-- [Basic setup]()
-- [Region Interest]()
-- [Search Interest]()
-- [Related Queries]()
-- [Related Topics]()
-- [Use filters]()
-- [Get response for one keywords]()
+- [Simple](./examples/simple.rs)
+- [Region Interest](./examples/region_interest.rs)
+- [Search Interest](./examples/search_interest.rs)
+- [Related Queries](./examples/related_queries.rs)
+- [Related Topics](./examples/related_topics.rs)
+- [Use filters](./examples/filter.rs)
+- [Get response for specific keyword]()
 
 ### License
 
