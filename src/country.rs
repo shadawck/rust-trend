@@ -1,8 +1,8 @@
-use std::fmt;
+//! Represent Google Trend Country
 
+use std::fmt;
 use crate::errors::errors::UnsupportedCategoryError;
 
-/// Represent Google Trend Country
 #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash, Debug, Default)]
 pub struct Country {
     country: &'static str,

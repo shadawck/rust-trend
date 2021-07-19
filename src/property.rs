@@ -1,3 +1,5 @@
+//! Represent a Google Trend Property
+
 use core::panic;
 use std::fmt;
 

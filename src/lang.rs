@@ -1,7 +1,8 @@
+//! Represent all langage supported by google
+
 use core::panic;
 use std::fmt;
 
-/// Represent all angage supported by google
 #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash, Debug, Default)]
 pub struct Lang {
     lang: &'static str,

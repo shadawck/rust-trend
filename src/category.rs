@@ -1,8 +1,9 @@
+//! Represent Google Trend Categories.
+
 use serde::Deserialize;
 use serde_json::Value;
 use std::fmt::{Display, Formatter, Result};
 
-/// Represent Google Trend Categories.
 #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash, Debug, Default, Deserialize)]
 pub struct Category {
     id: u16,

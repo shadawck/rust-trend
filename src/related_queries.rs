@@ -1,14 +1,15 @@
+//! Represent Google Trend Related Queries list.
+//! 
+//! Users searching for your term also searched for these queries.
+//! You can sort by the following metrics:
+//! - Top - The most popular search queries.
+//! Scoring is on a relative scale where a value of 100 is the most commonly searched query, 50 is a query searched half as often as the most popular query, and so on.
+//! - Rising - Queries with the biggest increase in search frequency since the last time period.
+//! Results marked "Breakout" had a tremendous increase, probably because these queries are new and had few (if any) prior searches.
+
 use crate::{client::*, request_handler::Query};
 use serde_json::Value;
 
-/// Represent Google Trend Related Queries list.
-/// 
-/// Users searching for your term also searched for these queries.
-/// You can sort by the following metrics:
-/// - <p>* <b>Top</b> - The most popular search queries.
-/// Scoring is on a relative scale where a value of 100 is the most commonly searched query, 50 is a query searched half as often as the most popular query, and so on.
-/// - <p>* <b>Rising</b> - Queries with the biggest increase in search frequency since the last time period.
-/// Results marked "Breakout" had a tremendous increase, probably because these queries are new and had few (if any) prior searches.
 #[derive(Clone, Debug, Default)]
 pub struct RelatedQueries {
     pub client: Client,

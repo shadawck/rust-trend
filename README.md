@@ -2,9 +2,8 @@
 
 **This lib is a work in progress**
 
-
 ## Overview
-
+Unofficial Rust API for interacting with Google Trend
 
 ## Documentation
 - [Examples Repository]("./examples")

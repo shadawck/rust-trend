@@ -1,9 +1,10 @@
+//! Client used to initialize everything needed by the Google Trend API.
+
 use crate::{utils, Category, Cookie, Country, Keywords, Lang, Property};
 use chrono::{Date, Utc};
 use reqwest::{blocking::ClientBuilder, header, Url};
 use serde_json::Value;
 
-/// Client used to initialize everything needed by the Google Trend API.
 #[derive(Clone, Debug)]
 pub struct Client {
     pub client: reqwest::blocking::Client,

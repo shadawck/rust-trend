@@ -1,14 +1,15 @@
+//! Represent Google Trend geo maps.
+//!
+//! See in which location your keyword was most popular during the specified time frame.
+//! Values are calculated on a scale from 0 to 100, where 100 is the location with the most popularity as a fraction of total searches in that location, a value of 50 indicates a location which is half as popular.
+//! A value of 0 indicates a location where there was not enough data for this term.
+
 use crate::client::*;
 use crate::request_handler::Query;
 use serde_json::Value;
 
 // Correpond to Multiline request => Google trend interest curve
 
-/// Represent Google Trend geo maps.
-///
-/// See in which location your keyword was most popular during the specified time frame.
-/// Values are calculated on a scale from 0 to 100, where 100 is the location with the most popularity as a fraction of total searches in that location, a value of 50 indicates a location which is half as popular.
-/// A value of 0 indicates a location where there was not enough data for this term.
 #[derive(Debug, Clone)]
 pub struct RegionInterest {
     pub client: Client,

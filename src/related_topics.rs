@@ -1,16 +1,18 @@
+//! Represent Google Trend Related Topics list.
+//!
+//! Users searching for your keywords also searched for these topics.
+//! You can view by the following metrics:
+//! - Top - The most popular topics.
+//! Scoring is on a relative scale where a value of 100 is the most commonly searched topic and a value of 50 is a topic searched half as often as the most popular term, and so on.
+//! - Rising
+//! Related topics with the biggest increase in search frequency since the last time period.
+//! Results marked "Breakout" had a tremendous increase, probably because these topics are new and had few (if any) prior searches.
+
 use crate::client::*;
 use crate::request_handler::Query;
 use serde_json::Value;
 
-/// Represent Google Trend Related Topics list.
-///
-/// Users searching for your keywords also searched for these topics.
-/// You can view by the following metrics:
-/// - <p>* <b>Top</b> - The most popular topics.
-/// Scoring is on a relative scale where a value of 100 is the most commonly searched topic and a value of 50 is a topic searched half as often as the most popular term, and so on.
-/// - <p>* <b>Rising</b>
-/// Related topics with the biggest increase in search frequency since the last time period.
-/// Results marked "Breakout" had a tremendous increase, probably because these topics are new and had few (if any) prior searches.
+
 #[derive(Clone, Debug, Default)]
 pub struct RelatedTopics {
     pub client: Client,
