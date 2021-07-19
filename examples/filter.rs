@@ -12,7 +12,6 @@ fn main() {
         .with_lang(lang)
         .with_property(property)
         .build();
-    
     let related_queries = RelatedQueries::new(client).get();
     println!("{}", related_queries);
 }

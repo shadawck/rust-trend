@@ -8,8 +8,4 @@ fn main() {
 
     let search_interest = SearchInterest::new(client).get();
     println!("{}", search_interest);
-
-    // Add curve 
-    // ...
-
 }
