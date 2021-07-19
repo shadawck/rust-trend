@@ -8,7 +8,7 @@ readme = "README.md"
 repository = "https://github.com/shadawck/rust-trend"
 homepage = "https://github.com/shadawck/rust-trend"
 license = "MIT OR Apache-2.0"
-keywords = ["google trend", "trend", "google", "api", "web", "SEO"]
+keywords = ["google_trend", "trend", "google", "api", "web", "SEO"]
 categories = ["api-bindings"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
