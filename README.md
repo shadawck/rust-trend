@@ -2,18 +2,13 @@
 
 **This lib is a work in progress**
 
-- [x] Write documentation  & README
-- [ ] Add "TOP" and "RISING" filter 
-- [ ] Write tests
-- [ ] Make async feature (currently using Reqwest::blocking)
-- [ ] Release on crates.io
 
 ## Overview
 
 
 ## Documentation
 - [Examples Repository]("./examples")
-- [API Documentation]()
+- [API Documentation](https://docs.rs/rtrend)
 
 ## Example
 
@@ -84,6 +79,16 @@ println!("{}", region_interest);
 - [Related Topics](./examples/related_topics.rs)
 - [Use filters](./examples/filter.rs)
 - [Get response for specific keyword](./examples/select_keyword.rs)
+
+### Roadmap
+
+- [x] Write documentation & Doc Test
+  [x] Release on crates.io
+- [x] Add examples
+- [ ] Add "TOP" and "RISING" filter
+- [ ] Write more tests
+- [ ] Make async feature (currently using Reqwest::blocking)
+
 
 ### License
 

@@ -62,9 +62,3 @@ impl Display for KeywordMinCapacityError {
         write!(f, "At least one keyword is required !")
     }
 }
-
-#[allow(dead_code)]
-pub enum KeywordsError {
-    KeywordMaxCapacityError,
-    KeywordMinCapacityError,
-}
