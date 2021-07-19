@@ -83,7 +83,7 @@ println!("{}", region_interest);
 - [Related Queries](./examples/related_queries.rs)
 - [Related Topics](./examples/related_topics.rs)
 - [Use filters](./examples/filter.rs)
-- [Get response for specific keyword]()
+- [Get response for specific keyword](./examples/select_keyword.rs)
 
 ### License
 
