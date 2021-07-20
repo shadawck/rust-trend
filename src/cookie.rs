@@ -23,7 +23,7 @@ impl Cookie {
             .to_str()
             .unwrap()
             .to_string()
-            .split(" ")
+            .split(' ')
             .collect::<Vec<&str>>()[0]
             .to_string()
     }

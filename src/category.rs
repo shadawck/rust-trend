@@ -40,7 +40,7 @@ impl Category {
         let ids = value
             .as_array()
             .unwrap()
-            .into_iter()
+            .iter()
             .filter(|ident| ident["id"] == id)
             .collect::<Vec<&Value>>();
 

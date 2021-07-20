@@ -3,7 +3,7 @@
 //! All Countries available [here ](https://github.com/shadawck/rust-trend/wiki/Countries)
 
 use std::fmt;
-use crate::errors::errors::UnsupportedCategoryError;
+use crate::errors::error::UnsupportedCategoryError;
 
 #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash, Debug, Default)]
 pub struct Country {

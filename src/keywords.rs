@@ -49,14 +49,8 @@ impl From<&'static str> for Keywords {
     }
 }
 
-impl Into<String> for Keywords {
-    fn into(self) -> String {
-        self.keywords.join(",")
-    }
-}
-
 fn check_keywords(keys: Vec<&'static str>) -> Vec<&'static str> {
-    if keys.len() == 0 {
+    if keys.is_empty() {
         panic!("At least one keyword is required !")
     }
     if keys.len() > 5 {

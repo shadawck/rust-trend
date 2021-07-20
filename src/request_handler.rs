@@ -29,7 +29,7 @@ pub trait Query {
 
 impl Query for SearchInterest {
     fn build_request(&self) -> Vec<RequestBuilder> {
-        const MULTILINE_ENDPOINT: &'static str =
+        const MULTILINE_ENDPOINT: &str =
             "https://trends.google.com/trends/api/widgetdata/multiline";
         let url = Url::parse(MULTILINE_ENDPOINT).unwrap();
 
@@ -44,7 +44,7 @@ impl Query for SearchInterest {
 
 impl Query for RegionInterest {
     fn build_request(&self) -> Vec<RequestBuilder> {
-        const COMPAREDGEO_ENDPOINT: &'static str =
+        const COMPAREDGEO_ENDPOINT: &str =
             "https://trends.google.com/trends/api/widgetdata/comparedgeo";
         let url = Url::parse(COMPAREDGEO_ENDPOINT).unwrap();
         let keywords_nb = self.client.keywords.keywords.len();
@@ -78,7 +78,7 @@ impl Query for RegionInterest {
 
 impl Query for RelatedTopics {
     fn build_request(&self) -> Vec<RequestBuilder> {
-        const RELATED_SEARCH_ENDPOINT: &'static str =
+        const RELATED_SEARCH_ENDPOINT: &str =
             "https://trends.google.com/trends/api/widgetdata/relatedsearches";
         let url = Url::parse(RELATED_SEARCH_ENDPOINT).unwrap();
         let keywords = self.client.keywords.keywords.clone();
@@ -91,8 +91,8 @@ impl Query for RelatedTopics {
                 .replace("\"", "");
             vec![build_query(self.client.clone(), url, request, token)]
         } else {
-            for i in 0..keywords.len() {
-                let individual_keyword = Keywords::new(vec![keywords[i]]);
+            for keyword in &keywords{
+                let individual_keyword = Keywords::new(vec![keyword]);
 
                 let new_client = self
                     .client
@@ -113,7 +113,7 @@ impl Query for RelatedTopics {
 
 impl Query for RelatedQueries {
     fn build_request(&self) -> Vec<RequestBuilder> {
-        const RELATED_QUERY_ENDPOINT: &'static str =
+        const RELATED_QUERY_ENDPOINT: &str =
             "https://trends.google.com/trends/api/widgetdata/relatedsearches";
         let url = Url::parse(RELATED_QUERY_ENDPOINT).unwrap();
 
