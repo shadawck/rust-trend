@@ -1,4 +1,6 @@
-//! Represent all langage supported by google
+//! Represent all langage supported by google.   
+//! 
+//! All langages available [here](https://github.com/shadawck/rust-trend/wiki/Langages)
 
 use core::panic;
 use std::fmt;

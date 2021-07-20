@@ -1,4 +1,6 @@
-//! Represent Google Trend Categories.
+//! Represent Google Trend Categories.   
+//! 
+//! All categories available [here](https://github.com/shadawck/rust-trend/wiki/Categories)
 
 use serde::Deserialize;
 use serde_json::Value;

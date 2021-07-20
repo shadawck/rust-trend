@@ -1,4 +1,6 @@
-//! Represent Google Trend Country
+//! Represent Google Trend Country.   
+//! 
+//! All Countries available [here ](https://github.com/shadawck/rust-trend/wiki/Countries)
 
 use std::fmt;
 use crate::errors::errors::UnsupportedCategoryError;
