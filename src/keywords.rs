@@ -1,6 +1,7 @@
 //! A list of keywords to query on Google Trend
 //! Keywords is limited to a maximum of 5 keywords.
 
+use crate::errors::{KeywordMaxCapacity, KeywordMinCapacity};
 use std::fmt::{Display, Formatter, Result};
 
 #[derive(Clone, Eq, PartialEq, Ord, PartialOrd, Hash, Debug, Default)]
@@ -51,10 +52,10 @@ impl From<&'static str> for Keywords {
 
 fn check_keywords(keys: Vec<&'static str>) -> Vec<&'static str> {
     if keys.is_empty() {
-        panic!("At least one keyword is required !")
+        Err(KeywordMinCapacity).unwrap()
     }
     if keys.len() > 5 {
-        panic!("The maximum is 5 keywords !")
+        Err(KeywordMaxCapacity).unwrap()
     }
     keys
 }

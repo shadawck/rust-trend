@@ -2,8 +2,8 @@
 //! 
 //! All Countries available [here ](https://github.com/shadawck/rust-trend/wiki/Countries)
 
-use std::fmt;
-use crate::errors::error::UnsupportedCategoryError;
+use std::fmt::{Display, Formatter, Result};
+use crate::errors::UnsupportedCategory;
 
 #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash, Debug, Default)]
 pub struct Country {
@@ -47,8 +47,8 @@ impl Country {
     /// # use rtrend::Country;
     /// let country = Country::new("ZC");
     /// ```
-    pub fn new(country: &'static str) -> Country {
-        Country {
+    pub fn new(country: &'static str) -> Self {
+        Self {
             country: Self::check_country(country),
         }
     }
@@ -62,7 +62,7 @@ impl Country {
                     country
                 }
             }
-            false => Err(UnsupportedCategoryError).unwrap(),
+            false => Err(UnsupportedCategory).unwrap(),
         }
     }
 
@@ -72,13 +72,13 @@ impl Country {
     }
 
     /// Convert country to &str
-    pub fn as_str(&self) -> &'static str {
+    pub const fn as_str(&self) -> &'static str {
         self.country
     }
 }
 
-impl fmt::Display for Country {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+impl Display for Country {
+    fn fmt(&self, f: &mut Formatter) -> Result {
         write!(f, "{}", self.country)
     }
 }

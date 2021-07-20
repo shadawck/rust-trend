@@ -8,10 +8,9 @@
 //! Related topics with the biggest increase in search frequency since the last time period.
 //! Results marked "Breakout" had a tremendous increase, probably because these topics are new and had few (if any) prior searches.
 
-use crate::client::*;
 use crate::request_handler::Query;
+use crate::Client;
 use serde_json::Value;
-
 
 #[derive(Clone, Debug, Default)]
 pub struct RelatedTopics {
@@ -19,15 +18,15 @@ pub struct RelatedTopics {
 }
 
 impl RelatedTopics {
-    pub fn new(client: Client) -> RelatedTopics {
-        RelatedTopics { client }
+    pub fn new(client: Client) -> Self {
+        Self { client }
     }
 
     /// Retrieve Topics data for all keywords.
     ///
     /// Retrieve data for all keywords set within the client.
     ///
-    /// Returns a JSON serde Value (serde_json::Value).
+    /// Returns a JSON serde Value (`serde_json::Value`).
     ///
     /// # Example
     /// ```
@@ -70,7 +69,7 @@ impl RelatedTopics {
     ///
     /// Retrieve data for a specific keyword set within the client.
     ///
-    /// Returns a JSON serde Value (serde_json::Value).
+    /// Returns a JSON serde Value (`serde_json::Value`).
     ///
     /// ```rust
     /// # use rtrend::{Country, Keywords, Client, RelatedTopics};
@@ -81,6 +80,18 @@ impl RelatedTopics {
     /// let related_topics = RelatedTopics::new(client).get_for("Gitlab");
     ///
     /// println!("{}", related_topics);
+    /// ```
+    /// # Panics
+    /// Will panic if input keyword have not been set previously for the client.
+    ///
+    /// ```should_panic
+    /// # use rtrend::{Country, Keywords, Client, RelatedTopics};
+    /// let keywords = Keywords::new(vec!["PS4","XBOX","PC"]);
+    /// let country = Country::new("ALL");
+    ///
+    /// let client = Client::new(keywords, country).build();
+    ///
+    /// let region_interest = RelatedTopics::new(client).get_for("WII");
     /// ```
     pub fn get_for(&self, keyword: &str) -> Value {
         let index = self

@@ -1,9 +1,8 @@
 //! Represent all langage supported by google.   
-//! 
+//!
 //! All langages available [here](https://github.com/shadawck/rust-trend/wiki/Langages)
-
-use core::panic;
-use std::fmt;
+use std::fmt::{Display, Formatter, Result};
+use crate::errors::UnsupportedLang;
 
 #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash, Debug, Default)]
 pub struct Lang {
@@ -38,21 +37,22 @@ impl Lang {
     /// # use rtrend::Lang;
     /// let lang = Lang::new("zc");
     /// ```
-    pub fn new(lang: &'static str) -> Lang {
-        Lang {
+    pub fn new(lang: &'static str) -> Self {
+        Self {
             lang: Self::check_lang(lang),
         }
     }
 
+
     fn check_lang(lang: &'static str) -> &'static str {
         match Self::SUPPORTED_LANG.contains(&lang) {
             true => lang,
-            false => panic!("Unsupported langage !"),
+            false => Err(UnsupportedLang).unwrap(),
         }
     }
 
     /// List supported langage
-    pub fn as_str(&self) -> &'static str {
+    pub const fn as_str(&self) -> &'static str {
         self.lang
     }
 
@@ -62,8 +62,8 @@ impl Lang {
     }
 }
 
-impl fmt::Display for Lang {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+impl Display for Lang {
+    fn fmt(&self, f: &mut Formatter) -> Result {
         write!(f, "{}", self.lang)
     }
 }

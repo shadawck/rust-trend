@@ -1,5 +1,5 @@
 //! Represent Google Trend Related Queries list.
-//! 
+//!
 //! Users searching for your term also searched for these queries.
 //! You can sort by the following metrics:
 //! - Top - The most popular search queries.
@@ -7,7 +7,9 @@
 //! - Rising - Queries with the biggest increase in search frequency since the last time period.
 //! Results marked "Breakout" had a tremendous increase, probably because these queries are new and had few (if any) prior searches.
 
-use crate::{client::*, request_handler::Query};
+use crate::request_handler::Query;
+use crate::Client;
+
 use serde_json::Value;
 
 #[derive(Clone, Debug, Default)]
@@ -24,7 +26,7 @@ impl RelatedQueries {
     ///
     /// Retrieve data for all keywords set within the client.
     ///
-    /// Returns a JSON serde Value (serde_json::Value).
+    /// Returns a JSON serde Value (`serde_json::Value`).
     ///
     /// # Example
     /// ```
@@ -66,7 +68,7 @@ impl RelatedQueries {
     ///
     /// Retrieve data for a specific keyword set within the client.
     ///
-    /// Returns a JSON serde Value (serde_json::Value).
+    /// Returns a JSON serde Value (`serde_json::Value`).
     ///
     /// ```rust
     /// # use rtrend::{Country, Keywords, Client, RelatedQueries};
@@ -78,6 +80,19 @@ impl RelatedQueries {
     /// let related_queries = RelatedQueries::new(client).get_for("Gitlab");
     ///
     /// println!("{}", related_queries);
+    /// ```
+    /// 
+    /// # Panics
+    /// Will panic if input keyword have not been set previously for the client.
+    /// 
+    /// ```should_panic
+    /// # use rtrend::{Country, Keywords, Client, RelatedQueries};
+    /// let keywords = Keywords::new(vec!["PS4","XBOX","PC"]);
+    /// let country = Country::new("ALL");
+    /// 
+    /// let client = Client::new(keywords, country).build();
+    /// 
+    /// let region_interest = RelatedQueries::new(client).get_for("WII");
     /// ```
     pub fn get_for(&self, keyword: &str) -> Value {
         let index = self

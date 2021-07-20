@@ -38,7 +38,7 @@ impl Query for SearchInterest {
             .to_string()
             .replace("\"", "");
 
-        vec![build_query(self.client.clone(), url, request, token)]
+        vec![build_query(&self.client, url, request, token)]
     }
 }
 
@@ -56,19 +56,14 @@ impl Query for RegionInterest {
                 .to_string()
                 .replace("\"", "");
 
-            vec![build_query(self.client.clone(), url, request, token)]
+            vec![build_query(&self.client, url, request, token)]
         } else {
-            for i in 1..keywords_nb + 1 {
+            for i in 1..=keywords_nb {
                 let request = self.client.response["widgets"][i * 3]["request"].to_string();
                 let token = self.client.response["widgets"][i * 3]["token"]
                     .to_string()
                     .replace("\"", "");
-                requests.push(build_query(
-                    self.client.clone(),
-                    url.clone(),
-                    request,
-                    token,
-                ));
+                requests.push(build_query(&self.client, url.clone(), request, token));
             }
 
             requests
@@ -89,9 +84,9 @@ impl Query for RelatedTopics {
             let token = self.client.response["widgets"][2]["token"]
                 .to_string()
                 .replace("\"", "");
-            vec![build_query(self.client.clone(), url, request, token)]
+            vec![build_query(&self.client, url, request, token)]
         } else {
-            for keyword in &keywords{
+            for keyword in &keywords {
                 let individual_keyword = Keywords::new(vec![keyword]);
 
                 let new_client = self
@@ -103,7 +98,7 @@ impl Query for RelatedTopics {
                 let token = new_client.response["widgets"][2]["token"]
                     .to_string()
                     .replace("\"", "");
-                requests.push(build_query(new_client, url.clone(), request, token))
+                requests.push(build_query(&new_client, url.clone(), request, token))
             }
 
             requests
@@ -125,26 +120,21 @@ impl Query for RelatedQueries {
             let token = self.client.response["widgets"][3]["token"]
                 .to_string()
                 .replace("\"", "");
-            vec![build_query(self.client.clone(), url, request, token)]
+            vec![build_query(&self.client, url, request, token)]
         } else {
-            for i in 1..keywords_nb + 1 {
+            for i in 1..=keywords_nb {
                 let request = self.client.response["widgets"][i * 3 + 1]["request"].to_string();
                 let token = self.client.response["widgets"][i * 3 + 1]["token"]
                     .to_string()
                     .replace("\"", "");
-                requests.push(build_query(
-                    self.client.clone(),
-                    url.clone(),
-                    request,
-                    token,
-                ));
+                requests.push(build_query(&self.client, url.clone(), request, token));
             }
             requests
         }
     }
 }
 
-fn build_query(client: Client, url: Url, request: String, token: String) -> RequestBuilder {
+fn build_query(client: &Client, url: Url, request: String, token: String) -> RequestBuilder {
     client.client.get(url).query(&[
         ("hl", client.lang.as_str()),
         ("tz", "-120"),

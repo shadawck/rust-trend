@@ -1,10 +1,12 @@
 //! Represent Google Trend Categories.   
-//! 
+//!
 //! All categories available [here](https://github.com/shadawck/rust-trend/wiki/Categories)
 
 use serde::Deserialize;
 use serde_json::Value;
 use std::fmt::{Display, Formatter, Result};
+
+use crate::errors::UnsupportedCategory;
 
 #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash, Debug, Default, Deserialize)]
 pub struct Category {
@@ -13,15 +15,15 @@ pub struct Category {
 
 impl Category {
     /// Create a new Category.
-    /// 
+    ///
     /// Returns a Category instance.
-    /// 
+    ///
     /// # Example
     /// ```
     /// # use rtrend::Category;
     /// let category = Category::new(76);
     /// ```
-    /// 
+    ///
     /// # Panics
     /// An unsupported Category id will make the program to panic
     /// ```should_panic
@@ -29,7 +31,7 @@ impl Category {
     /// // 1800 is an unsupported category id
     /// let category = Category::new(1800);
     /// ```
-    pub fn new(id: u16) -> Category {
+    pub fn new(id: u16) -> Self {
         Self {
             id: Self::check_category(id),
         }
@@ -45,7 +47,7 @@ impl Category {
             .collect::<Vec<&Value>>();
 
         match ids.len() {
-            0 => panic!("Unsupported category"),
+            0 => Err(UnsupportedCategory).unwrap(),
             _ => ids[0],
         };
 

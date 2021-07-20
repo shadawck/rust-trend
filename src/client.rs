@@ -40,12 +40,12 @@ pub struct Client {
 /// println!("{:#?}", client);
 /// ```
 impl Default for Client {
-    fn default() -> Client {
-        Client {
-            client: Default::default(),
+    fn default() -> Self {
+        Self {
+            client: reqwest::blocking::Client::default(),
             cookie: Cookie::new(),
             response: serde_json::from_str("{}").unwrap(),
-            keywords: Default::default(),
+            keywords: Keywords::default(),
             time: "today 12-m".to_string(),
             country: Country::new("ALL"),
             property: Property::new("web"),
@@ -71,6 +71,11 @@ impl Client {
     /// 
     /// let client = Client::new(keywords, country);
     /// ```
+    /// 
+    /// # Panics
+    /// 
+    /// Will panic if the client can't be built.
+    /// This can happen if the cookie can not be set or if the request time out.
     pub fn new(keywords: Keywords, country: Country) -> Self {
         let mut headers = header::HeaderMap::new();
         headers = Cookie::new().add_to_header(headers);
@@ -80,7 +85,7 @@ impl Client {
             Err(error) => panic!(
                 "Problem constructing the client while retrieving access token: {:?}",
                 error
-            ),
+            )
         };
 
         Self {

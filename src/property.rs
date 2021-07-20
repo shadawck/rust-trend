@@ -1,7 +1,8 @@
 //! Represent a Google Trend Property
 
-use core::panic;
-use std::fmt;
+use std::fmt::{Display, Formatter, Result};
+
+use crate::errors::UnsupportedProperty;
 
 #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash, Debug, Default)]
 pub struct Property {
@@ -31,13 +32,13 @@ impl Property {
     /// # use rtrend::Property;
     /// let property = Property::new("maps");
     /// ```
-    pub fn new(property: &'static str) -> Property {
-        Property {
+    pub fn new(property: &'static str) -> Self {
+        Self {
             property: Self::check_property(property),
         }
     }
 
-    fn check_property(property: &'static str) -> &'static str{
+    fn check_property(property: &'static str) -> &'static str {
         match Self::SUPPORTED_PROPERTY.contains(&property) {
             true => {
                 if property.eq("web") {
@@ -46,7 +47,7 @@ impl Property {
                     property
                 }
             }
-            false => panic!("Unsupported property !"),
+            false => Err(UnsupportedProperty).unwrap(),
         }
     }
 
@@ -56,8 +57,8 @@ impl Property {
     }
 }
 
-impl fmt::Display for Property {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+impl Display for Property {
+    fn fmt(&self, f: &mut Formatter) -> Result {
         write!(f, "{}", self.property)
     }
 }

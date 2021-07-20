@@ -4,7 +4,7 @@
 //! A value of 100 is the peak popularity for the term. A value of 50 means that the term is half as popular.
 //! A score of 0 means there was not enough data for this term.
 
-use crate::client::Client;
+use crate::Client;
 use crate::request_handler::Query;
 
 use serde_json::Value;
@@ -15,9 +15,9 @@ pub struct SearchInterest {
 }
 
 impl SearchInterest {
-    /// Create a `SearchInterest` Instance.
+    /// Create a SearchInterest instance.
     /// 
-    /// Returns a `SearchInterest` instance
+    /// Returns a SearchInterest instance
     pub fn new(client: Client) -> Self {
         Self { client }
     }
@@ -26,7 +26,7 @@ impl SearchInterest {
     ///
     /// Retrieve data for all keywords set within the client.
     ///
-    /// Returns a JSON serde Value (serde_json::Value).
+    /// Returns a JSON serde Value (`serde_json::Value`).
     /// ```
     /// # use rtrend::{Country, Keywords, Client, SearchInterest};
     /// let keywords = Keywords::new(vec!["Candy"]);

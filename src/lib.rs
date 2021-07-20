@@ -19,7 +19,7 @@
 //! 
 //! Then build a client and send the reqwest you want : 
 //! ```rust
-//! use rtrend::{Keyword, Country, Client, RegionInterest};
+//! use rtrend::{Keywords, Country, Client, RegionInterest};
 //! 
 //! let country = Country::new("US");
 //! let keywords = Keywords::new(vec!["Instagram","Facebook"]);
@@ -86,7 +86,7 @@
 //! - [x] Add examples
 //! - [ ] Add "TOP" and "RISING" filter
 //! - [ ] Write more tests
-//! - [ ] Make async feature (currently using Reqwest::blocking)
+//! - [ ] Make async feature (currently using `Reqwest::blocking`)
 //! 
 //! 
 //! ### License
