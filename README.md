@@ -86,7 +86,9 @@ println!("{}", region_interest);
 - [x] Write documentation & Doc Test
   [x] Release on crates.io
 - [x] Add examples
-- [ ] Add "TOP" and "RISING" filter
+- [x] Add "TOP" and "RISING" filter
+- [x] Add REGION and CITY filter
+- [ ] Add METRO filter for country like USA or France
 - [ ] Write more tests
 - [ ] Make async feature (currently using Reqwest::blocking)
 
