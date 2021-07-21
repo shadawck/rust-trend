@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 use crate::{
     utils, Client, Keywords, RegionInterest, RelatedQueries, RelatedTopics, SearchInterest,
 };
@@ -51,19 +53,22 @@ impl Query for RegionInterest {
         let mut requests: Vec<RequestBuilder> = Vec::new();
 
         if keywords_nb == 1 {
-            let request = self.client.response["widgets"][1]["request"].to_string();
+            let request = self.client.response["widgets"][1]["request"].clone();
+            let mod_region_request = mod_region_request(request, self.resolution).to_string();
+
             let token = self.client.response["widgets"][1]["token"]
                 .to_string()
                 .replace("\"", "");
 
-            vec![build_query(&self.client, url, request, token)]
+            vec![build_query(&self.client, url, mod_region_request, token)]
         } else {
             for i in 1..=keywords_nb {
-                let request = self.client.response["widgets"][i * 3]["request"].to_string();
+                let request = self.client.response["widgets"][i * 3]["request"].clone();
+                let mod_region_request = mod_region_request(request, self.resolution).to_string();
                 let token = self.client.response["widgets"][i * 3]["token"]
                     .to_string()
                     .replace("\"", "");
-                requests.push(build_query(&self.client, url.clone(), request, token));
+                requests.push(build_query(&self.client, url.clone(), mod_region_request, token));
             }
 
             requests
@@ -142,4 +147,16 @@ fn build_query(client: &Client, url: Url, request: String, token: String) -> Req
         ("token", token.as_str()),
         ("tz", "-120"),
     ])
+}
+
+fn mod_region_request(request: Value, resolution: &str) -> Value {
+    let mut config: HashMap<String, Value> =
+        serde_json::from_value(request).expect("unable to parse JSON request");
+    if let Some(mut res) = config["resolution"].as_str() {
+        res = resolution;
+        config.insert("resolution".to_string(), Value::from(res));
+    } else {
+        panic!("Unknown resolution");
+    }
+    serde_json::to_value(config).unwrap()
 }

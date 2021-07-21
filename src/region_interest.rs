@@ -13,6 +13,16 @@ use serde_json::Value;
 #[derive(Debug, Clone)]
 pub struct RegionInterest {
     pub client: Client,
+    pub resolution : &'static str,
+}
+
+impl Default for RegionInterest {
+    fn default() -> Self {
+        Self {
+            client: Client::default(),
+            resolution : "REGION"
+        }
+    }
 }
 
 impl RegionInterest {
@@ -20,7 +30,15 @@ impl RegionInterest {
     /// 
     /// Returns a `RegionInterest` instance
     pub fn new(client: Client) -> Self {
-        Self { client }
+        Self { 
+            client,
+            ..Default::default()
+        }
+    }
+
+    pub fn with_filter(mut self, scale : &'static str) -> Self {
+        self.resolution = scale;
+        self
     }
 
     /// Retrieve maps data for all keywords.

@@ -22,11 +22,9 @@ impl RelatedTopics {
         Self { client }
     }
 
-    /// Retrieve Topics data for all keywords.
+    /// Retrieve Topics data for all keywords set within the client.
     ///
-    /// Retrieve data for all keywords set within the client.
-    ///
-    /// Returns a JSON serde Value (`serde_json::Value`).
+    /// Returns a `serde_json::Value`.
     ///
     /// # Example
     /// ```
@@ -64,6 +62,47 @@ impl RelatedTopics {
 
         serde_json::from_str(form.as_str()).unwrap()
     }
+
+    /// Retrieve Topics data for all keywords filtered by Top Topics in descending order
+    /// Returns a `serde_json::Value`.
+    /// 
+    /// # Example
+    /// ```
+    /// # use rtrend::{Country, Keywords, Client, RelatedTopics};
+    /// let keywords = Keywords::new(vec!["Github vs Gitlab"]);
+    /// let country = Country::new("ALL");
+    /// let client = Client::new(keywords, country).build();
+    ///
+    /// let related_topics = RelatedTopics::new(client).top();
+    ///
+    /// println!("{}", related_topics);
+    /// ```
+    pub fn top(&self) -> Value {
+        self.get()[0].to_owned()
+    }
+
+    /// Retrieve Topics data for all keywords filtered by Rising Topics in descending order
+    /// Returns a `serde_json::Value`.
+    /// 
+    /// # Example
+    /// Retrieve Topics data for all keywords filtered by Top Topics in descending order
+    /// Returns a `serde_json::Value`.
+    /// 
+    /// # Example
+    /// ```
+    /// # use rtrend::{Country, Keywords, Client, RelatedTopics};
+    /// let keywords = Keywords::new(vec!["Github vs Gitlab"]);
+    /// let country = Country::new("ALL");
+    /// let client = Client::new(keywords, country).build();
+    ///
+    /// let related_topics = RelatedTopics::new(client).rising();
+    ///
+    /// println!("{}", related_topics);
+    /// ```
+    pub fn rising(&self) -> Value {
+        self.get()[1].to_owned()
+    }
+
 
     /// Retrieve Topics data for a specific keywords.
     ///
