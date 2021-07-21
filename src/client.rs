@@ -92,7 +92,7 @@ impl Client {
             client,
             country,
             keywords,
-            ..Default::default()
+            ..Client::default()
         }
     }
 

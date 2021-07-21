@@ -18,6 +18,9 @@ pub struct RelatedTopics {
 }
 
 impl RelatedTopics {
+    /// Create a `RelatedTopics` Instance.
+    /// 
+    /// Returns a `RelatedTopics` instance
     pub fn new(client: Client) -> Self {
         Self { client }
     }
@@ -78,7 +81,7 @@ impl RelatedTopics {
     /// println!("{}", related_topics);
     /// ```
     pub fn top(&self) -> Value {
-        self.get()[0].to_owned()
+        self.get()[0].clone()
     }
 
     /// Retrieve Topics data for all keywords filtered by Rising Topics in descending order
@@ -100,7 +103,7 @@ impl RelatedTopics {
     /// println!("{}", related_topics);
     /// ```
     pub fn rising(&self) -> Value {
-        self.get()[1].to_owned()
+        self.get()[1].clone()
     }
 
 

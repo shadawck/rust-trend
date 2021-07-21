@@ -1,9 +1,9 @@
 //! Represent Google Trend Country.   
-//! 
+//!
 //! All Countries available [here ](https://github.com/shadawck/rust-trend/wiki/Countries)
 
-use std::fmt::{Display, Formatter, Result};
 use crate::errors::UnsupportedCategory;
+use std::fmt::{Display, Formatter, Result};
 
 #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash, Debug, Default)]
 pub struct Country {
@@ -32,15 +32,15 @@ impl Country {
     ];
 
     /// Create a new Country.
-    /// 
+    ///
     /// Returns a Country instance.
-    /// 
+    ///
     /// # Example
     /// ```
     /// # use rtrend::Country;
     /// let country = Country::new("FR");
     /// ```
-    /// 
+    ///
     /// # Panics
     /// An unsupported Country id will panic.
     /// ```should_panic
@@ -54,15 +54,14 @@ impl Country {
     }
 
     fn check_country(country: &'static str) -> &'static str {
-        match Self::SUPPORTED_COUNTRY.contains(&country) {
-            true => {
-                if country.eq("ALL") {
-                    ""
-                } else {
-                    country
-                }
+        if Self::SUPPORTED_COUNTRY.contains(&country) {
+            if country.eq("ALL") {
+                ""
+            } else {
+                country
             }
-            false => Err(UnsupportedCategory).unwrap(),
+        } else {
+            Err(UnsupportedCategory).unwrap()
         }
     }
 

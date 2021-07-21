@@ -15,9 +15,9 @@ pub struct SearchInterest {
 }
 
 impl SearchInterest {
-    /// Create a SearchInterest instance.
+    /// Create a `SearchInterest` instance.
     /// 
-    /// Returns a SearchInterest instance
+    /// Returns a `SearchInterest` instance
     pub fn new(client: Client) -> Self {
         Self { client }
     }

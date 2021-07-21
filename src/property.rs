@@ -39,15 +39,14 @@ impl Property {
     }
 
     fn check_property(property: &'static str) -> &'static str {
-        match Self::SUPPORTED_PROPERTY.contains(&property) {
-            true => {
-                if property.eq("web") {
-                    ""
-                } else {
-                    property
-                }
+        if Self::SUPPORTED_PROPERTY.contains(&property) {
+            if property.eq("web") {
+                ""
+            } else {
+                property
             }
-            false => Err(UnsupportedProperty).unwrap(),
+        } else {
+            Err(UnsupportedProperty).unwrap()
         }
     }
 

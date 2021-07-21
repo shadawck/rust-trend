@@ -18,6 +18,9 @@ pub struct RelatedQueries {
 }
 
 impl RelatedQueries {
+    /// Create a `RelatedQueries` Instance.
+    /// 
+    /// Returns a `RelatedQueries` instance
     pub fn new(client: Client) -> Self {
         Self { client }
     }
