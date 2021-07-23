@@ -1,9 +1,9 @@
 on: [push]
 
-name: CI
+name: Doc testing
 
 jobs:
-  doc :
+  doc:
     name: Test docs examples
     runs-on: ubuntu-latest
     steps:
