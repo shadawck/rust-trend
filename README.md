@@ -16,7 +16,7 @@ Unofficial Rust API for interacting with Google Trend
 First, add the dependency to your `cargo.toml`:
 ```toml
 [dependencies]
-rtrend = "0.1.0"
+rtrend = "0.1.2"
 ```
 
 Then build a client and send the reqwest you want : 
