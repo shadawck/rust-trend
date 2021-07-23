@@ -5,7 +5,7 @@
 //! A value of 0 indicates a location where there was not enough data for this term.
 
 use crate::request_handler::Query;
-use crate::Client;
+use crate::{Client, Country};
 use serde_json::Value;
 
 // Correpond to Multiline request => Google trend interest curve
@@ -30,19 +30,30 @@ impl RegionInterest {
     ///
     /// Returns a `RegionInterest` instance
     pub fn new(client: Client) -> Self {
+
+        let res;
+
+        if client.country.eq(&Country::new("ALL")){
+            res = "COUNTRY";
+        }else{
+            res = "REGION";
+        }
+
         Self {
             client,
-            ..RegionInterest::default()
+            resolution : res
         }
     }
 
     /// Add a geographic filter.
     /// You can filter result by "REGION" and "CITY".
-    ///
+    /// 
+    /// Warning : When making a request on all countries, use "COUNTRY" instead of "REGION" else it will panic
+    /// 
     /// Returns a `RegionInterest` instance.
     ///
     /// # Example
-    /// ```rust
+    /// ```
     /// # use rtrend::{Country, Keywords, Client, RegionInterest};
     /// let keywords = Keywords::new(vec!["hacker"]);
     /// let country = Country::new("US");
@@ -52,6 +63,38 @@ impl RegionInterest {
     ///
     /// println!("{}", region_interest);
     /// ```
+    /// 
+    /// # Panics
+    /// By default, on google trend, when making request on all countries, the country are called region (when you use filter).
+    /// But we can't use the keyword REGION to filter by COUNTRY. So instead use the keyword "COUNTRY"
+    /// 
+    /// This example will panic
+    /// ```should_panic
+    /// # use rtrend::{Country, Keywords, Client, RegionInterest};
+    /// let keywords = Keywords::new(vec!["hacker"]);
+    /// let country = Country::new("ALL");
+    /// let client = Client::new(keywords, country).build();
+    ///
+    /// let region_interest = RegionInterest::new(client).with_filter("REGION").get();
+    ///
+    /// println!("{}", region_interest);
+    /// ```
+    /// 
+    /// Instead do not filter and let the default value or use the "COUNTRY" filter
+    /// ```
+    /// # use rtrend::{Country, Keywords, Client, RegionInterest};
+    /// let keywords = Keywords::new(vec!["hacker"]);
+    /// let country = Country::new("ALL");
+    /// let client = Client::new(keywords, country).build();
+    ///
+    /// let region_interest = RegionInterest::new(client).with_filter("COUNTRY").get();
+    /// // or 
+    /// // let region_interest = RegionInterest::new(client).get();
+    ///  // will return the same result
+    ///
+    ///  println!("{}", region_interest);
+    /// ```
+    /// 
     pub fn with_filter(mut self, scale: &'static str) -> Self {
         self.resolution = scale;
         self
@@ -103,6 +146,7 @@ impl RegionInterest {
     /// # use rtrend::{Country, Keywords, Client, RegionInterest};
     /// let keywords = Keywords::new(vec!["PS4","XBOX","PC"]);
     /// let country = Country::new("ALL");
+    /// 
     /// let client = Client::new(keywords, country).build();
     ///
     /// let region_interest = RegionInterest::new(client).get_for("PS4");

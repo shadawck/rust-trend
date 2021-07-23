@@ -68,7 +68,12 @@ impl Query for RegionInterest {
                 let token = self.client.response["widgets"][i * 3]["token"]
                     .to_string()
                     .replace("\"", "");
-                requests.push(build_query(&self.client, url.clone(), mod_region_request, token));
+                requests.push(build_query(
+                    &self.client,
+                    url.clone(),
+                    mod_region_request,
+                    token,
+                ));
             }
 
             requests
