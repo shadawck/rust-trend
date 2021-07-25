@@ -48,7 +48,7 @@ impl Default for Client {
             keywords: Keywords::default(),
             time: "today 12-m".to_string(),
             country: Country::new("ALL"),
-            property: Property::new("web"),
+            property: Property::Web,
             lang: Lang::new("en"),
             category: Category::new(0),
         }
@@ -173,7 +173,7 @@ impl Client {
     /// let country = Country::new("ALL");
     /// 
     /// // The response will be retrieve from youtube data
-    /// let property = Property::new("youtube");
+    /// let property = Properties::Youtube;
     /// 
     /// let client = Client::new(keywords, country).with_property(property);
     /// ```
@@ -245,7 +245,7 @@ impl Client {
     /// 
     /// let client = Client::new(keywords, country).with_filter(
     ///     Category::new(66),          // 66 => "Pets & Animal"
-    ///     Property::new("images"),    // Search on Google Images
+    ///     Properties::Images,           // Search on Google Images
     ///     "today 3-m".to_string(),    // 90 previous days
     ///     Lang::new("it")             // in italian
     /// );

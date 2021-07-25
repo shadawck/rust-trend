@@ -6,7 +6,7 @@ fn main() {
 
     // Set response lang to french and search on Google Image
     let lang = Lang::new("fr");
-    let property = Property::new("images");
+    let property = Property::Images;
 
     let client = Client::new(keywords, country)
         .with_lang(lang)

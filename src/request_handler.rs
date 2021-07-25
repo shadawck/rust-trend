@@ -23,6 +23,9 @@ pub trait Query {
             };
             let body = resp.text().unwrap();
             let clean_response = utils::sanitize_response(&body, BAD_CHARACTER);
+
+            println!("{}", clean_response);
+
             responses.push(serde_json::from_str(clean_response).unwrap())
         }
         responses
@@ -65,6 +68,9 @@ impl Query for RegionInterest {
             for i in 1..=keywords_nb {
                 let request = self.client.response["widgets"][i * 3]["request"].clone();
                 let mod_region_request = mod_region_request(request, self.resolution).to_string();
+
+                println!("{}",mod_region_request);
+
                 let token = self.client.response["widgets"][i * 3]["token"]
                     .to_string()
                     .replace("\"", "");
