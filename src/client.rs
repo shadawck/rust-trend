@@ -18,14 +18,14 @@ pub struct Client {
     pub response: Value,
 }
 
-/// Default value for client 
-/// 
+/// Default value for client
+///
 /// Returns a Default Client.  
 ///
 /// By default,
 /// - The requested period is 1 year
 /// - The Country is all the countries supported by google trend
-/// - The Langage is English 
+/// - The Langage is English
 /// - The Category is 0
 /// - The response is empty (but valid json)
 ///
@@ -34,9 +34,9 @@ pub struct Client {
 /// # use rtrend::{Client, Keywords, Country};
 /// let keywords = Keywords::new(vec!["rust"]);
 /// let country = Country::FR;
-/// 
+///
 /// let client = Client::new(keywords, country);
-/// 
+///
 /// println!("{:#?}", client);
 /// ```
 impl Default for Client {
@@ -68,12 +68,12 @@ impl Client {
     /// # use rtrend::{Client, Keywords, Country};
     /// let keywords = Keywords::new(vec!["rust"]);
     /// let country = Country::FR;
-    /// 
+    ///
     /// let client = Client::new(keywords, country);
     /// ```
-    /// 
+    ///
     /// # Panics
-    /// 
+    ///
     /// Will panic if the client can't be built.
     /// This can happen if the cookie can not be set or if the request time out.
     pub fn new(keywords: Keywords, country: Country) -> Self {
@@ -85,7 +85,7 @@ impl Client {
             Err(error) => panic!(
                 "Problem constructing the client while retrieving access token: {:?}",
                 error
-            )
+            ),
         };
 
         Self {
@@ -128,7 +128,7 @@ impl Client {
     /// let keywords = Keywords::new(vec!["rust"]);
     /// let country = Country::ALL;
     /// let lang = Lang::FR;
-    /// 
+    ///
     /// // Set response langage to french
     /// let client = Client::new(keywords, country).with_lang(lang);
     /// ```
@@ -149,7 +149,7 @@ impl Client {
     /// let keywords = Keywords::new(vec!["hacking"]);
     /// let country = Country::ALL;
     /// let category = Category::new(231);
-    /// 
+    ///
     /// // Set category to "Engineering & Technology"
     /// let client = Client::new(keywords, country).with_category(category);
     /// ```
@@ -171,10 +171,10 @@ impl Client {
     /// # use rtrend::{Client, Keywords, Country, Property};
     /// let keywords = Keywords::new(vec!["vlog"]);
     /// let country = Country::ALL;
-    /// 
+    ///
     /// // The response will be retrieve from youtube data
     /// let property = Property::Youtube;
-    /// 
+    ///
     /// let client = Client::new(keywords, country).with_property(property);
     /// ```
     pub fn with_property(mut self, property: Property) -> Self {
@@ -194,7 +194,7 @@ impl Client {
     /// # use rtrend::{Client, Keywords, Country};
     /// let keywords = Keywords::new(vec!["vlog"]);
     /// let country = Country::ALL;
-    /// 
+    ///
     /// // response will concern data from this week
     /// let client = Client::new(keywords, country).with_period("now 7d".to_string());
     /// ```
@@ -214,11 +214,11 @@ impl Client {
     /// # use chrono::prelude::*;
     /// let keywords = Keywords::new(vec!["vlog"]);
     /// let country = Country::ALL;
-    /// 
+    ///
     /// // response will concern data from April 25, 2020 to July 30, 2021
     /// let start_date: Date<Utc> = Utc.ymd(2017, 4, 25);
     /// let end_date: Date<Utc> = Utc.ymd(2020, 7, 30);
-    /// 
+    ///
     /// let client = Client::new(keywords, country).with_date(start_date, end_date);
     /// ```
     pub fn with_date(mut self, start_date: Date<Utc>, end_date: Date<Utc>) -> Self {
@@ -242,7 +242,7 @@ impl Client {
     /// # use rtrend::{Client, Keywords, Country, Property, Category, Lang};
     /// let keywords = Keywords::new(vec!["cat"]);
     /// let country = Country::ALL;
-    /// 
+    ///
     /// let client = Client::new(keywords, country).with_filter(
     ///     Category::new(66),          // 66 => "Pets & Animal"
     ///     Property::Images,         // Search on Google Images
@@ -275,7 +275,7 @@ impl Client {
     /// # use rtrend::{Client, Keywords, Country};
     /// let keywords = Keywords::new(vec!["Cat"]);
     /// let country = Country::US;
-    /// 
+    ///
     /// let client = Client::new(keywords, country).build();
     ///
     /// println!("{}", client.response);

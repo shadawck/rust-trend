@@ -23,5 +23,6 @@ strum_macros = "0.21"
 
 [profile.release]
 lto = true
+opt-level = 3 
 codegen-units = 1
-panic = "abort"
+panic = "unwind"
