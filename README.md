@@ -23,7 +23,7 @@ Then build a client and send the reqwest you want :
 ```rust
 use rtrend::{Keyword, Country, Client, RegionInterest};
 
-let country = Country::new("US");
+let country = Country::US;
 let keywords = Keywords::new(vec!["Instagram","Facebook"]);
 let client = Client::new(keywords, country).build();
 

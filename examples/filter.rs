@@ -2,11 +2,11 @@ use rtrend::{Client, Country, Keywords, Lang, Property, RelatedQueries};
 
 fn main() {
     let keywords = Keywords::new(vec!["Pasta"]);
-    let country = Country::new("IT");
+    let country = Country::IT;
 
     // Set response lang to french and search on Google Image
-    let lang = Lang::new("fr");
-    let property = Property::Images;
+    let lang = Lang::FR;
+    let property = Property::Web;
 
     let client = Client::new(keywords, country)
         .with_lang(lang)

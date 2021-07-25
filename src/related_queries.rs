@@ -35,7 +35,7 @@ impl RelatedQueries {
     /// ```
     /// # use rtrend::{Country, Keywords, Client, RelatedQueries};
     /// let keywords = Keywords::new(vec!["Github vs Gitlab"]);
-    /// let country = Country::new("ALL");
+    /// let country = Country::ALL;
     /// let client = Client::new(keywords, country).build();
     ///
     /// let related_queries = RelatedQueries::new(client).get();
@@ -49,7 +49,7 @@ impl RelatedQueries {
     /// ```should_panic
     /// # use rtrend::{Country, Keywords, Client, RelatedQueries};
     /// let keywords = Keywords::new(vec!["Github vs Gitlab"]);
-    /// let country = Country::new("ALL");
+    /// let country = Country::ALL;
     /// let client = Client::new(keywords, country);
     ///
     /// let related_queries = RelatedQueries::new(client).get();
@@ -76,7 +76,7 @@ impl RelatedQueries {
     /// ```rust
     /// # use rtrend::{Country, Keywords, Client, RelatedQueries};
     /// let keywords = Keywords::new(vec!["Github", "Gitlab"]);
-    /// let country = Country::new("ALL");
+    /// let country = Country::ALL;
     ///
     /// let client = Client::new(keywords, country).build();
     ///
@@ -91,7 +91,7 @@ impl RelatedQueries {
     /// ```should_panic
     /// # use rtrend::{Country, Keywords, Client, RelatedQueries};
     /// let keywords = Keywords::new(vec!["PS4","XBOX","PC"]);
-    /// let country = Country::new("ALL");
+    /// let country = Country::ALL;
     /// 
     /// let client = Client::new(keywords, country).build();
     /// 

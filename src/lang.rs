@@ -1,69 +1,87 @@
 //! Represent all langage supported by google.   
 //!
 //! All langages available [here](https://github.com/shadawck/rust-trend/wiki/Langages)
-use std::fmt::{Display, Formatter, Result};
-use crate::errors::UnsupportedLang;
+use strum_macros::{Display, EnumString, EnumVariantNames};
 
-#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash, Debug, Default)]
-pub struct Lang {
-    lang: &'static str,
-}
-
-impl Lang {
-    const SUPPORTED_LANG: &'static [&'static str] = &[
-        "af", "ga", "sq", "it", "ar", "ja", "az", "kn", "eu", "ko", "bn", "la", "be", "lv", "bg",
-        "lt", "ca", "mk", "zh-CN", "ms", "zh-TW", "mt", "hr", "no", "cs", "fa", "da", "pl", "nl",
-        "pt", "en", "ro", "eo", "ru", "et", "sr", "tl", "sk", "fi", "sl", "fr", "es", "gl", "sw",
-        "ka", "sv", "de", "ta", "el", "te", "gu", "th", "ht", "tr", "iw", "uk", "hi", "ur", "hu",
-        "vi", "is", "cy", "id", "yi",
-    ];
-
-    /// Create a new langage.
-    ///
-    /// For the moment, langage need to be set in lowercase.
-    ///
-    /// Returns a Langage instance.
-    ///
-    /// # Example
-    /// ```
-    /// # use rtrend::Lang;
-    /// // The returned lang will be set to italian
-    /// let lang = Lang::new("it");
-    /// ```
-    ///
-    /// # Panics
-    /// An unsupported langage will panic.
-    /// ```should_panic
-    /// # use rtrend::Lang;
-    /// let lang = Lang::new("zc");
-    /// ```
-    pub fn new(lang: &'static str) -> Self {
-        Self {
-            lang: Self::check_lang(lang),
-        }
-    }
-
-
-    fn check_lang(lang: &'static str) -> &'static str {
-        match Self::SUPPORTED_LANG.contains(&lang) {
-            true => lang,
-            false => Err(UnsupportedLang).unwrap(),
-        }
-    }
-
-    /// List supported langage
-    pub const fn as_str(&self) -> &'static str {
-        self.lang
-    }
-
-    /// Convert country to &str
-    pub fn list() {
-        println!("{:#?}", Self::SUPPORTED_LANG);
-    }
-}
-
-impl Display for Lang {
-    fn fmt(&self, f: &mut Formatter) -> Result {
-        write!(f, "{}", self.lang)
-    }
+/// Create a new langage.
+///
+/// Returns a Langage instance.
+///
+/// # Example
+/// ```
+/// # use rtrend::Lang;
+/// // The returned lang will be set to italian
+/// let lang = Lang::IT;
+/// ```
+#[derive(PartialEq, Display, Debug, EnumString, Clone, EnumVariantNames)]
+#[strum(serialize_all = "kebab_case")]
+pub enum Lang {
+    AF,
+    AR,
+    AZ,
+    BE,
+    BG,
+    BN,
+    CA,
+    CS,
+    CY,
+    DA,
+    DE,
+    EL,
+    EN,
+    EO,
+    ES,
+    ET,
+    EU,
+    FA,
+    FI,
+    FR,
+    GA,
+    GL,
+    GU,
+    HI,
+    HR,
+    HT,
+    HU,
+    ID,
+    IS,
+    IT,
+    IW,
+    JA,
+    KA,
+    KN,
+    KO,
+    LA,
+    LT,
+    LV,
+    MK,
+    MS,
+    MT,
+    NL,
+    NO,
+    PL,
+    PT,
+    RO,
+    RU,
+    SK,
+    SL,
+    SQ,
+    SR,
+    SV,
+    SW,
+    TA,
+    TE,
+    TH,
+    TL,
+    TR,
+    UK,
+    UR,
+    VI,
+    YI,
+    #[allow(non_camel_case_types)]
+    #[strum(serialize = "zh-CN")]
+    ZH_CN,
+    #[allow(non_camel_case_types)]
+    #[strum(serialize = "zh-TW")]
+    ZH_TW,
 }

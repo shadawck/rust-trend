@@ -2,7 +2,7 @@ use rtrend::{Client, Country, Keywords, SearchInterest};
 
 fn main() {
     let keywords = Keywords::new(vec!["Cinema"]);
-    let country = Country::new("ALL");
+    let country = Country::ALL;
 
     let client = Client::new(keywords, country).build();
 

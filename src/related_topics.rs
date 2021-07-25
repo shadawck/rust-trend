@@ -33,7 +33,7 @@ impl RelatedTopics {
     /// ```
     /// # use rtrend::{Country, Keywords, Client, RelatedTopics};
     /// let keywords = Keywords::new(vec!["Github vs Gitlab"]);
-    /// let country = Country::new("ALL");
+    /// let country = Country::ALL;
     /// let client = Client::new(keywords, country).build();
     ///
     /// let related_topics = RelatedTopics::new(client).get();
@@ -47,7 +47,7 @@ impl RelatedTopics {
     /// ```should_panic
     /// # use rtrend::{Country, Keywords, Client, RelatedTopics};
     /// let keywords = Keywords::new(vec!["hacker"]);
-    /// let country = Country::new("US");
+    /// let country = Country::US;
     ///
     /// // Client not built
     /// let client = Client::new(keywords, country);
@@ -73,7 +73,7 @@ impl RelatedTopics {
     /// ```
     /// # use rtrend::{Country, Keywords, Client, RelatedTopics};
     /// let keywords = Keywords::new(vec!["Github vs Gitlab"]);
-    /// let country = Country::new("ALL");
+    /// let country = Country::ALL;
     /// let client = Client::new(keywords, country).build();
     ///
     /// let related_topics = RelatedTopics::new(client).top();
@@ -95,7 +95,7 @@ impl RelatedTopics {
     /// ```
     /// # use rtrend::{Country, Keywords, Client, RelatedTopics};
     /// let keywords = Keywords::new(vec!["Github vs Gitlab"]);
-    /// let country = Country::new("ALL");
+    /// let country = Country::ALL;
     /// let client = Client::new(keywords, country).build();
     ///
     /// let related_topics = RelatedTopics::new(client).rising();
@@ -116,7 +116,7 @@ impl RelatedTopics {
     /// ```rust
     /// # use rtrend::{Country, Keywords, Client, RelatedTopics};
     /// let keywords = Keywords::new(vec!["Github", "Gitlab"]);
-    /// let country = Country::new("ALL");
+    /// let country = Country::ALL;
     /// let client = Client::new(keywords, country).build();
     ///
     /// let related_topics = RelatedTopics::new(client).get_for("Gitlab");
@@ -129,7 +129,7 @@ impl RelatedTopics {
     /// ```should_panic
     /// # use rtrend::{Country, Keywords, Client, RelatedTopics};
     /// let keywords = Keywords::new(vec!["PS4","XBOX","PC"]);
-    /// let country = Country::new("ALL");
+    /// let country = Country::ALL;
     ///
     /// let client = Client::new(keywords, country).build();
     ///

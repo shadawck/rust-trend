@@ -23,9 +23,6 @@ pub trait Query {
             };
             let body = resp.text().unwrap();
             let clean_response = utils::sanitize_response(&body, BAD_CHARACTER);
-
-            println!("{}", clean_response);
-
             responses.push(serde_json::from_str(clean_response).unwrap())
         }
         responses
@@ -69,7 +66,7 @@ impl Query for RegionInterest {
                 let request = self.client.response["widgets"][i * 3]["request"].clone();
                 let mod_region_request = mod_region_request(request, self.resolution).to_string();
 
-                println!("{}",mod_region_request);
+                println!("{}", mod_region_request);
 
                 let token = self.client.response["widgets"][i * 3]["token"]
                     .to_string()
@@ -133,6 +130,8 @@ impl Query for RelatedQueries {
 
         if keywords_nb == 1 {
             let request = self.client.response["widgets"][3]["request"].to_string();
+            println!("{}", request);
+
             let token = self.client.response["widgets"][3]["token"]
                 .to_string()
                 .replace("\"", "");
@@ -152,7 +151,7 @@ impl Query for RelatedQueries {
 
 fn build_query(client: &Client, url: Url, request: String, token: String) -> RequestBuilder {
     client.client.get(url).query(&[
-        ("hl", client.lang.as_str()),
+        ("hl", client.lang.to_string().as_str()),
         ("tz", "-120"),
         ("req", request.as_str()),
         ("token", token.as_str()),

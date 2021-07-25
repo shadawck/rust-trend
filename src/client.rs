@@ -33,7 +33,7 @@ pub struct Client {
 /// ```
 /// # use rtrend::{Client, Keywords, Country};
 /// let keywords = Keywords::new(vec!["rust"]);
-/// let country = Country::new("FR");
+/// let country = Country::FR;
 /// 
 /// let client = Client::new(keywords, country);
 /// 
@@ -47,9 +47,9 @@ impl Default for Client {
             response: serde_json::from_str("{}").unwrap(),
             keywords: Keywords::default(),
             time: "today 12-m".to_string(),
-            country: Country::new("ALL"),
+            country: Country::ALL,
             property: Property::Web,
-            lang: Lang::new("en"),
+            lang: Lang::EN,
             category: Category::new(0),
         }
     }
@@ -67,7 +67,7 @@ impl Client {
     /// ```
     /// # use rtrend::{Client, Keywords, Country};
     /// let keywords = Keywords::new(vec!["rust"]);
-    /// let country = Country::new("FR");
+    /// let country = Country::FR;
     /// 
     /// let client = Client::new(keywords, country);
     /// ```
@@ -104,7 +104,7 @@ impl Client {
     /// ```
     /// # use rtrend::{Client, Keywords, Country};
     /// let keywords = Keywords::new(vec!["rust"]);
-    /// let country = Country::new("FR");
+    /// let country = Country::FR;
     /// let client = Client::new(keywords, country);
     ///
     /// // ...
@@ -126,8 +126,8 @@ impl Client {
     /// ```
     /// # use rtrend::{Client, Keywords, Country, Lang};
     /// let keywords = Keywords::new(vec!["rust"]);
-    /// let country = Country::new("ALL");
-    /// let lang = Lang::new("fr");
+    /// let country = Country::ALL;
+    /// let lang = Lang::FR;
     /// 
     /// // Set response langage to french
     /// let client = Client::new(keywords, country).with_lang(lang);
@@ -147,7 +147,7 @@ impl Client {
     /// ```
     /// # use rtrend::{Client, Keywords, Country, Category};
     /// let keywords = Keywords::new(vec!["hacking"]);
-    /// let country = Country::new("ALL");
+    /// let country = Country::ALL;
     /// let category = Category::new(231);
     /// 
     /// // Set category to "Engineering & Technology"
@@ -170,10 +170,10 @@ impl Client {
     /// ```
     /// # use rtrend::{Client, Keywords, Country, Property};
     /// let keywords = Keywords::new(vec!["vlog"]);
-    /// let country = Country::new("ALL");
+    /// let country = Country::ALL;
     /// 
     /// // The response will be retrieve from youtube data
-    /// let property = Properties::Youtube;
+    /// let property = Property::Youtube;
     /// 
     /// let client = Client::new(keywords, country).with_property(property);
     /// ```
@@ -193,7 +193,7 @@ impl Client {
     /// ```
     /// # use rtrend::{Client, Keywords, Country};
     /// let keywords = Keywords::new(vec!["vlog"]);
-    /// let country = Country::new("ALL");
+    /// let country = Country::ALL;
     /// 
     /// // response will concern data from this week
     /// let client = Client::new(keywords, country).with_period("now 7d".to_string());
@@ -213,7 +213,7 @@ impl Client {
     /// # use rtrend::{Client, Keywords, Country};
     /// # use chrono::prelude::*;
     /// let keywords = Keywords::new(vec!["vlog"]);
-    /// let country = Country::new("ALL");
+    /// let country = Country::ALL;
     /// 
     /// // response will concern data from April 25, 2020 to July 30, 2021
     /// let start_date: Date<Utc> = Utc.ymd(2017, 4, 25);
@@ -241,13 +241,13 @@ impl Client {
     /// ```
     /// # use rtrend::{Client, Keywords, Country, Property, Category, Lang};
     /// let keywords = Keywords::new(vec!["cat"]);
-    /// let country = Country::new("ALL");
+    /// let country = Country::ALL;
     /// 
     /// let client = Client::new(keywords, country).with_filter(
     ///     Category::new(66),          // 66 => "Pets & Animal"
-    ///     Properties::Images,           // Search on Google Images
+    ///     Property::Images,         // Search on Google Images
     ///     "today 3-m".to_string(),    // 90 previous days
-    ///     Lang::new("it")             // in italian
+    ///     Lang::IT                    // in italian
     /// );
     /// ```
     #[allow(dead_code)]
@@ -274,7 +274,7 @@ impl Client {
     /// ```
     /// # use rtrend::{Client, Keywords, Country};
     /// let keywords = Keywords::new(vec!["Cat"]);
-    /// let country = Country::new("US");
+    /// let country = Country::US;
     /// 
     /// let client = Client::new(keywords, country).build();
     ///
@@ -288,8 +288,8 @@ impl Client {
             .client
             .get(url)
             .query(&[
-                ("hl", self.lang.as_str()),
-                ("geo", self.country.as_str()),
+                ("hl", self.lang.to_string().as_str()),
+                ("geo", self.country.to_string().as_str()),
                 ("tz", "-120"),
                 ("req", &comparison_item),
                 ("tz", "-120"),

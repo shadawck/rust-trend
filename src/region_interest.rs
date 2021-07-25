@@ -33,7 +33,7 @@ impl RegionInterest {
 
         let res;
 
-        if client.country.eq(&Country::new("ALL")){
+        if client.country.eq(&Country::ALL){
             res = "COUNTRY";
         }else{
             res = "REGION";
@@ -56,7 +56,7 @@ impl RegionInterest {
     /// ```
     /// # use rtrend::{Country, Keywords, Client, RegionInterest};
     /// let keywords = Keywords::new(vec!["hacker"]);
-    /// let country = Country::new("US");
+    /// let country = Country::US;
     /// let client = Client::new(keywords, country).build();
     ///
     /// let region_interest = RegionInterest::new(client).with_filter("CITY").get();
@@ -72,7 +72,7 @@ impl RegionInterest {
     /// ```should_panic
     /// # use rtrend::{Country, Keywords, Client, RegionInterest};
     /// let keywords = Keywords::new(vec!["hacker"]);
-    /// let country = Country::new("ALL");
+    /// let country = Country::ALL;
     /// let client = Client::new(keywords, country).build();
     ///
     /// let region_interest = RegionInterest::new(client).with_filter("REGION").get();
@@ -84,7 +84,7 @@ impl RegionInterest {
     /// ```
     /// # use rtrend::{Country, Keywords, Client, RegionInterest};
     /// let keywords = Keywords::new(vec!["hacker"]);
-    /// let country = Country::new("ALL");
+    /// let country = Country::ALL;
     /// let client = Client::new(keywords, country).build();
     ///
     /// let region_interest = RegionInterest::new(client).with_filter("COUNTRY").get();
@@ -110,7 +110,7 @@ impl RegionInterest {
     /// ```rust
     /// # use rtrend::{Country, Keywords, Client, RegionInterest};
     /// let keywords = Keywords::new(vec!["hacker"]);
-    /// let country = Country::new("US");
+    /// let country = Country::US;
     /// let client = Client::new(keywords, country).build();
     ///
     /// let region_interest = RegionInterest::new(client).get();
@@ -124,7 +124,7 @@ impl RegionInterest {
     /// ```rust,should_panic
     /// # use rtrend::{Country, Keywords, Client, RegionInterest};
     /// let keywords = Keywords::new(vec!["hacker"]);
-    /// let country = Country::new("US");
+    /// let country = Country::US;
     ///
     /// // Client not built
     /// let client = Client::new(keywords, country);
@@ -145,7 +145,7 @@ impl RegionInterest {
     /// ```
     /// # use rtrend::{Country, Keywords, Client, RegionInterest};
     /// let keywords = Keywords::new(vec!["PS4","XBOX","PC"]);
-    /// let country = Country::new("ALL");
+    /// let country = Country::ALL;
     /// 
     /// let client = Client::new(keywords, country).build();
     ///
@@ -160,7 +160,7 @@ impl RegionInterest {
     /// ```should_panic
     /// # use rtrend::{Country, Keywords, Client, RegionInterest};
     /// let keywords = Keywords::new(vec!["PS4","XBOX","PC"]);
-    /// let country = Country::new("ALL");
+    /// let country = Country::ALL;
     ///
     /// let client = Client::new(keywords, country).build();
     ///

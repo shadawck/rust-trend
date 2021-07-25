@@ -30,7 +30,7 @@ impl SearchInterest {
     /// ```
     /// # use rtrend::{Country, Keywords, Client, SearchInterest};
     /// let keywords = Keywords::new(vec!["Candy"]);
-    /// let country = Country::new("US");
+    /// let country = Country::US;
     /// 
     /// let client = Client::new(keywords, country).build();
     /// 
