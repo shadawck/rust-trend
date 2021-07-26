@@ -4,6 +4,7 @@ use crate::{utils, Category, Cookie, Country, Keywords, Lang, Property};
 use chrono::{Date, Utc};
 use reqwest::{blocking::ClientBuilder, header, Url};
 use serde_json::Value;
+use strum::EnumProperty;
 
 #[derive(Clone, Debug)]
 pub struct Client {
@@ -50,7 +51,7 @@ impl Default for Client {
             country: Country::ALL,
             property: Property::Web,
             lang: Lang::EN,
-            category: Category::new(0),
+            category: Category::All,
         }
     }
 }
@@ -148,7 +149,7 @@ impl Client {
     /// # use rtrend::{Client, Keywords, Country, Category};
     /// let keywords = Keywords::new(vec!["hacking"]);
     /// let country = Country::ALL;
-    /// let category = Category::new(231);
+    /// let category = Category::EngineeringAndTechnology;
     ///
     /// // Set category to "Engineering & Technology"
     /// let client = Client::new(keywords, country).with_category(category);
@@ -244,8 +245,8 @@ impl Client {
     /// let country = Country::ALL;
     ///
     /// let client = Client::new(keywords, country).with_filter(
-    ///     Category::new(66),          // 66 => "Pets & Animal"
-    ///     Property::Images,         // Search on Google Images
+    ///     Category::PetsAndAnimals, 
+    ///     Property::Images,           // Search on Google Images
     ///     "today 3-m".to_string(),    // 90 previous days
     ///     Lang::IT                    // in italian
     /// );
@@ -325,10 +326,16 @@ impl Client {
             comparison_item.push_str(&index_value);
         }
 
+
+        let id = match self.category.get_int("Id") {
+            Some(id) => id,
+            None => 0
+        };
+
         format!(
             "{{ 'comparisonItem': [{}], 'category':{}, 'property':'{}' }}",
             comparison_item.as_str(),
-            self.category,
+            id,
             self.property
         )
     }

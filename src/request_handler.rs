@@ -66,8 +66,6 @@ impl Query for RegionInterest {
                 let request = self.client.response["widgets"][i * 3]["request"].clone();
                 let mod_region_request = mod_region_request(request, self.resolution).to_string();
 
-                println!("{}", mod_region_request);
-
                 let token = self.client.response["widgets"][i * 3]["token"]
                     .to_string()
                     .replace("\"", "");
@@ -130,8 +128,6 @@ impl Query for RelatedQueries {
 
         if keywords_nb == 1 {
             let request = self.client.response["widgets"][3]["request"].to_string();
-            println!("{}", request);
-
             let token = self.client.response["widgets"][3]["token"]
                 .to_string()
                 .replace("\"", "");
