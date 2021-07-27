@@ -119,6 +119,7 @@ pub mod country;
 pub mod keywords;
 pub mod lang;
 pub mod property;
+pub mod period;
 
 mod request_handler;
 mod cookie;
@@ -136,3 +137,4 @@ pub use keywords::Keywords;
 pub use lang::Lang;
 pub use property::Property;
 pub use cookie::Cookie;
+pub use period::Period;

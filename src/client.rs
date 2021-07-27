@@ -1,9 +1,10 @@
 //! Client used to initialize everything needed by the Google Trend API.
 
-use crate::{utils, Category, Cookie, Country, Keywords, Lang, Property};
+use crate::{utils, Category, Cookie, Country, Keywords, Lang, Period, Property};
 use chrono::{Date, Utc};
 use reqwest::{blocking::ClientBuilder, header, Url};
 use serde_json::Value;
+use std::string::ToString;
 use strum::EnumProperty;
 
 #[derive(Clone, Debug)]
@@ -47,7 +48,7 @@ impl Default for Client {
             cookie: Cookie::new(),
             response: serde_json::from_str("{}").unwrap(),
             keywords: Keywords::default(),
-            time: "today 12-m".to_string(),
+            time: Period::OneYear.to_string(),
             country: Country::ALL,
             property: Property::Web,
             lang: Lang::EN,
@@ -192,15 +193,15 @@ impl Client {
     ///
     /// # Example
     /// ```
-    /// # use rtrend::{Client, Keywords, Country};
+    /// # use rtrend::{Client, Keywords, Country, Period};
     /// let keywords = Keywords::new(vec!["vlog"]);
     /// let country = Country::ALL;
     ///
     /// // response will concern data from this week
-    /// let client = Client::new(keywords, country).with_period("now 7d".to_string());
+    /// let client = Client::new(keywords, country).with_period(Period::SevenDay);
     /// ```
-    pub fn with_period(mut self, period: String) -> Self {
-        self.time = period;
+    pub fn with_period(mut self, period: impl ToString) -> Self {
+        self.time = period.to_string();
         self
     }
 
@@ -245,7 +246,7 @@ impl Client {
     /// let country = Country::ALL;
     ///
     /// let client = Client::new(keywords, country).with_filter(
-    ///     Category::PetsAndAnimals, 
+    ///     Category::PetsAndAnimals,
     ///     Property::Images,           // Search on Google Images
     ///     "today 3-m".to_string(),    // 90 previous days
     ///     Lang::IT                    // in italian
@@ -326,10 +327,9 @@ impl Client {
             comparison_item.push_str(&index_value);
         }
 
-
         let id = match self.category.get_int("Id") {
             Some(id) => id,
-            None => 0
+            None => 0,
         };
 
         format!(
