@@ -23,7 +23,7 @@ pub trait Query {
             };
             let body = resp.text().unwrap();
             let clean_response = utils::sanitize_response(&body, BAD_CHARACTER);
-            responses.push(serde_json::from_str(clean_response).unwrap())
+            responses.push(serde_json::from_str(clean_response).unwrap());
         }
         responses
     }
@@ -109,7 +109,7 @@ impl Query for RelatedTopics {
                 let token = new_client.response["widgets"][2]["token"]
                     .to_string()
                     .replace("\"", "");
-                requests.push(build_query(&new_client, url.clone(), request, token))
+                requests.push(build_query(&new_client, url.clone(), request, token));
             }
 
             requests

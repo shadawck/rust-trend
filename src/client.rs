@@ -327,10 +327,7 @@ impl Client {
             comparison_item.push_str(&index_value);
         }
 
-        let id = match self.category.get_int("Id") {
-            Some(id) => id,
-            None => 0,
-        };
+        let id = self.category.get_int("Id").unwrap_or(0);
 
         format!(
             "{{ 'comparisonItem': [{}], 'category':{}, 'property':'{}' }}",
