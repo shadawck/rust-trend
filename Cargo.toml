@@ -1,6 +1,6 @@
 [package]
 name = "rtrend"
-version = "0.1.3"
+version = "0.1.4"
 edition = "2018"
 authors = ["shadawck"]
 description = "Unofficial API for interacting with Google Trend"
