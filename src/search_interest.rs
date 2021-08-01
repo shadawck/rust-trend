@@ -22,7 +22,7 @@ impl SearchInterest {
         Self { client }
     }
 
-    /// Retrieve line chart data (Timeseries data) for all keywords
+    /// Retrieve line chart data (Timeseries data) for all keywords.
     ///
     /// Retrieve data for all keywords set within the client.
     ///

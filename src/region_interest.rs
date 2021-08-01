@@ -4,6 +4,7 @@
 //! Values are calculated on a scale from 0 to 100, where 100 is the location with the most popularity as a fraction of total searches in that location, a value of 50 indicates a location which is half as popular.
 //! A value of 0 indicates a location where there was not enough data for this term.
 
+use crate::errors::KeywordNotSet;
 use crate::request_handler::Query;
 use crate::{Client, Country};
 use serde_json::Value;
@@ -30,26 +31,25 @@ impl RegionInterest {
     ///
     /// Returns a `RegionInterest` instance
     pub fn new(client: Client) -> Self {
-
         let res;
 
-        if client.country.eq(&Country::ALL){
+        if client.country.eq(&Country::ALL) {
             res = "COUNTRY";
-        }else{
+        } else {
             res = "REGION";
         }
 
         Self {
             client,
-            resolution : res
+            resolution: res,
         }
     }
 
     /// Add a geographic filter.
     /// You can filter result by "REGION" and "CITY".
-    /// 
+    ///
     /// Warning : When making a request on all countries, use "COUNTRY" instead of "REGION" else it will panic
-    /// 
+    ///
     /// Returns a `RegionInterest` instance.
     ///
     /// # Example
@@ -63,11 +63,11 @@ impl RegionInterest {
     ///
     /// println!("{}", region_interest);
     /// ```
-    /// 
+    ///
     /// # Panics
     /// By default, on google trend, when making request on all countries, the country are called region (when you use filter).
     /// But we can't use the keyword REGION to filter by COUNTRY. So instead use the keyword "COUNTRY"
-    /// 
+    ///
     /// This example will panic
     /// ```should_panic
     /// # use rtrend::{Country, Keywords, Client, RegionInterest};
@@ -79,7 +79,7 @@ impl RegionInterest {
     ///
     /// println!("{}", region_interest);
     /// ```
-    /// 
+    ///
     /// Instead do not filter and let the default value or use the "COUNTRY" filter
     /// ```
     /// # use rtrend::{Country, Keywords, Client, RegionInterest};
@@ -88,13 +88,13 @@ impl RegionInterest {
     /// let client = Client::new(keywords, country).build();
     ///
     /// let region_interest = RegionInterest::new(client).with_filter("COUNTRY").get();
-    /// // or 
+    /// // or
     /// // let region_interest = RegionInterest::new(client).get();
     ///  // will return the same result
     ///
     ///  println!("{}", region_interest);
     /// ```
-    /// 
+    ///
     pub fn with_filter(mut self, scale: &'static str) -> Self {
         self.resolution = scale;
         self
@@ -146,7 +146,7 @@ impl RegionInterest {
     /// # use rtrend::{Country, Keywords, Client, RegionInterest};
     /// let keywords = Keywords::new(vec!["PS4","XBOX","PC"]);
     /// let country = Country::ALL;
-    /// 
+    ///
     /// let client = Client::new(keywords, country).build();
     ///
     /// let region_interest = RegionInterest::new(client).get_for("PS4");
@@ -176,7 +176,7 @@ impl RegionInterest {
 
         let keyword_index = match index {
             Some(k) => k,
-            None => panic!("The keyword {} is not set with the client", keyword),
+            None => Err(KeywordNotSet).unwrap(),
         };
 
         let response_index = keyword_index + 1;

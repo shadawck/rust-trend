@@ -7,6 +7,7 @@
 //! - Rising - Queries with the biggest increase in search frequency since the last time period.
 //! Results marked "Breakout" had a tremendous increase, probably because these queries are new and had few (if any) prior searches.
 
+use crate::errors::KeywordNotSet;
 use crate::request_handler::Query;
 use crate::Client;
 
@@ -106,7 +107,7 @@ impl RelatedQueries {
             .position(|&x| x == keyword);
         let keyword_index = match index {
             Some(k) => k,
-            None => panic!("The keyword {} is not set with the client", keyword),
+            None => Err(KeywordNotSet).unwrap(),
         };
 
         self.send_request()[keyword_index].clone()
