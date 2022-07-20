@@ -20,7 +20,7 @@ pub struct RelatedTopics {
 
 impl RelatedTopics {
     /// Create a `RelatedTopics` Instance.
-    /// 
+    ///
     /// Returns a `RelatedTopics` instance
     pub fn new(client: Client) -> Self {
         Self { client }
@@ -69,7 +69,7 @@ impl RelatedTopics {
 
     /// Retrieve Topics data for all keywords filtered by Top Topics in descending order
     /// Returns a `serde_json::Value`.
-    /// 
+    ///
     /// # Example
     /// ```
     /// # use rtrend::{Country, Keywords, Client, RelatedTopics};
@@ -87,11 +87,11 @@ impl RelatedTopics {
 
     /// Retrieve Topics data for all keywords filtered by Rising Topics in descending order
     /// Returns a `serde_json::Value`.
-    /// 
+    ///
     /// # Example
     /// Retrieve Topics data for all keywords filtered by Top Topics in descending order
     /// Returns a `serde_json::Value`.
-    /// 
+    ///
     /// # Example
     /// ```
     /// # use rtrend::{Country, Keywords, Client, RelatedTopics};
@@ -106,7 +106,6 @@ impl RelatedTopics {
     pub fn rising(&self) -> Value {
         self.get()[1].clone()
     }
-
 
     /// Retrieve Topics data for a specific keywords.
     ///

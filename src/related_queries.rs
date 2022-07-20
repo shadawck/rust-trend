@@ -20,7 +20,7 @@ pub struct RelatedQueries {
 
 impl RelatedQueries {
     /// Create a `RelatedQueries` Instance.
-    /// 
+    ///
     /// Returns a `RelatedQueries` instance
     pub fn new(client: Client) -> Self {
         Self { client }
@@ -85,17 +85,17 @@ impl RelatedQueries {
     ///
     /// println!("{}", related_queries);
     /// ```
-    /// 
+    ///
     /// # Panics
     /// Will panic if input keyword have not been set previously for the client.
-    /// 
+    ///
     /// ```should_panic
     /// # use rtrend::{Country, Keywords, Client, RelatedQueries};
     /// let keywords = Keywords::new(vec!["PS4","XBOX","PC"]);
     /// let country = Country::ALL;
-    /// 
+    ///
     /// let client = Client::new(keywords, country).build();
-    /// 
+    ///
     /// let region_interest = RelatedQueries::new(client).get_for("WII");
     /// ```
     pub fn get_for(&self, keyword: &str) -> Value {

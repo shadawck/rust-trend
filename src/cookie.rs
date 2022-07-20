@@ -13,8 +13,7 @@ impl Cookie {
     }
 
     pub fn get_new_cookie() -> String {
-        const COOKIE_HANDSHAKE: &str =
-            "https://consent.google.com/s?continue=https://www.google.com/";
+        const COOKIE_HANDSHAKE: &str = "https://consent.google.com/";
 
         let response = reqwest::blocking::get(COOKIE_HANDSHAKE).unwrap();
         let cookie = response.headers().get(SET_COOKIE).unwrap();

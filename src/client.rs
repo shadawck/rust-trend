@@ -81,6 +81,7 @@ impl Client {
     pub fn new(keywords: Keywords, country: Country) -> Self {
         let mut headers = header::HeaderMap::new();
         headers = Cookie::new().add_to_header(headers);
+
         let client = ClientBuilder::new().default_headers(headers).build();
         let client = match client {
             Ok(client) => client,
@@ -303,8 +304,12 @@ impl Client {
             Err(error) => panic!("Can't get client response: {:?}", error),
         };
 
+        println!("{:?}", resp);
+
         let body = resp.text().unwrap();
         let clean_response = utils::sanitize_response(&body, Self::BAD_CHARACTER).to_string();
+
+        println!("{:?}", clean_response);
 
         self.response = serde_json::from_str(clean_response.as_str()).unwrap();
         self
@@ -316,11 +321,7 @@ impl Client {
 
         for key in keys_it {
             let index_value = format!(
-                "{{
-                    'keyword':'{}',
-                    'geo':'{}',
-                    'time':'{}'
-                }},",
+                "{{'keyword':'{}','geo':'{}','time':'{}'}},",
                 key, self.country, self.time
             );
 
@@ -330,7 +331,7 @@ impl Client {
         let id = self.category.get_int("Id").unwrap_or(0);
 
         format!(
-            "{{ 'comparisonItem': [{}], 'category':{}, 'property':'{}' }}",
+            "{{'comparisonItem':[{}],'category':{},'property':'{}'}}",
             comparison_item.as_str(),
             id,
             self.property

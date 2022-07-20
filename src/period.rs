@@ -1,5 +1,5 @@
 //! Represent period predefined by Google Trend.   
-//! 
+//!
 //! All period available [here](https://github.com/shadawck/rust-trend/wiki/period)
 
 use strum_macros::{EnumString, ToString};
@@ -30,7 +30,6 @@ pub enum Period {
     #[strum(serialize = "today 3-m")]
     NinetyDay,
     #[strum(serialize = "today 12-m")]
-
     OneYear,
     #[strum(serialize = "today 5-y")]
     FiveYear,
