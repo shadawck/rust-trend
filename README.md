@@ -5,23 +5,27 @@
 **This lib is a work in progress**
 
 ## Overview
+
 Unofficial Rust API for interacting with Google Trend
 
 ## Documentation
+
 - [Examples Repository](./examples)
 - [API Documentation](https://docs.rs/rtrend)
 
 ## Example
 
 First, add the dependency to your `cargo.toml`:
+
 ```toml
 [dependencies]
 rtrend = "0.1.3"
 ```
 
-Then build a client and send the reqwest you want : 
+Then build a client and send the reqwest you want :
+
 ```rust
-use rtrend::{Keyword, Country, Client, RegionInterest};
+use rtrend::{Keywords, Country, Client, RegionInterest};
 
 let country = Country::US;
 let keywords = Keywords::new(vec!["Instagram","Facebook"]);
@@ -73,6 +77,7 @@ println!("{}", region_interest);
 ```
 
 ### More example
+
 - [Simple](./examples/simple.rs)
 - [Region Interest](./examples/region_interest.rs)
 - [Search Interest](./examples/search_interest.rs)
@@ -92,15 +97,14 @@ println!("{}", region_interest);
 - [ ] Write more tests
 - [ ] Make async feature (currently using Reqwest::blocking)
 
-
 ### License
 
 Licensed under either of
 
- * Apache License, Version 2.0
-   ([LICENSE-APACHE](LICENSE-APACHE) or http://www.apache.org/licenses/LICENSE-2.0)
- * MIT license
-   ([LICENSE-MIT](LICENSE-MIT) or http://opensource.org/licenses/MIT)
+- Apache License, Version 2.0
+   ([LICENSE-APACHE](LICENSE-APACHE) or <http://www.apache.org/licenses/LICENSE-2.0>)
+- MIT license
+   ([LICENSE-MIT](LICENSE-MIT) or <http://opensource.org/licenses/MIT>)
 
 at your option.
 
