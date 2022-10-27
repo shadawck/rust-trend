@@ -304,12 +304,8 @@ impl Client {
             Err(error) => panic!("Can't get client response: {:?}", error),
         };
 
-        println!("{:?}", resp);
-
         let body = resp.text().unwrap();
         let clean_response = utils::sanitize_response(&body, Self::BAD_CHARACTER).to_string();
-
-        println!("{:?}", clean_response);
 
         self.response = serde_json::from_str(clean_response.as_str()).unwrap();
         self
