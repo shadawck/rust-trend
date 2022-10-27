@@ -1,6 +1,6 @@
 [package]
 name = "rtrend"
-version = "0.1.5"
+version = "0.1.6"
 edition = "2018"
 authors = ["shadawck"]
 description = "Unofficial API for interacting with Google Trend"
@@ -23,5 +23,5 @@ strum_macros = "0.21"
 
 [profile.release]
 lto = true
-opt-level = 3 
+opt-level = 3
 panic = "unwind"

@@ -2,8 +2,6 @@
 
 ![rust-trend](./google-trends-rust-api-little.png)
 
-**This lib is a work in progress**
-
 ## Overview
 
 Unofficial Rust API for interacting with Google Trend
@@ -15,14 +13,13 @@ Unofficial Rust API for interacting with Google Trend
 
 ## Example
 
-First, add the dependency to your `cargo.toml`:
+First, add the dependency to your project:
 
-```toml
-[dependencies]
-rtrend = "0.1.3"
+```sh
+cargo add rtrend
 ```
 
-Then build a client and send the reqwest you want :
+Then build a client and send the *reqwest* you want :
 
 ```rust
 use rtrend::{Keywords, Country, Client, RegionInterest};
