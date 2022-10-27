@@ -14,7 +14,7 @@ use strum_macros::{Display, EnumString, EnumVariantNames};
 /// let property = Property::Web;
 /// ```
 
-#[derive(PartialEq, Display, Debug, EnumString, Clone, EnumVariantNames)]
+#[derive(Eq, PartialEq, Display, Debug, EnumString, Clone, EnumVariantNames)]
 #[strum(serialize_all = "kebab_case")]
 pub enum Property {
     #[strum(serialize = "")]

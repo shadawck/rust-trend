@@ -13,7 +13,7 @@ use strum_macros::{EnumString, ToString};
 /// # use rtrend::Period;
 /// let lang = Period::OneDay;
 /// ```
-#[derive(PartialEq, Debug, EnumString, Clone, ToString)]
+#[derive(Eq, PartialEq, Debug, EnumString, Clone, ToString)]
 pub enum Period {
     #[strum(serialize = "now 1-H")]
     OneHour,

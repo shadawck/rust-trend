@@ -13,7 +13,7 @@ use strum_macros::{Display, EnumString, EnumVariantNames};
 /// // The returned lang will be set to italian
 /// let lang = Lang::IT;
 /// ```
-#[derive(PartialEq, Display, Debug, EnumString, Clone, EnumVariantNames)]
+#[derive(Eq, PartialEq, Display, Debug, EnumString, Clone, EnumVariantNames)]
 #[strum(serialize_all = "kebab_case")]
 pub enum Lang {
     AF,

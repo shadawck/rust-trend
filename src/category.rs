@@ -13,7 +13,7 @@ use strum_macros::{Display, EnumProperty};
 /// # use rtrend::Category;
 /// let category = Category::InternetAndTelecom;
 /// ```
-#[derive(PartialEq, Display, Debug, EnumProperty, Clone)]
+#[derive(Eq, PartialEq, Display, Debug, EnumProperty, Clone)]
 pub enum Category {
     #[strum(props(Id = "642"))]
     ADDAndADHD,

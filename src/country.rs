@@ -13,7 +13,7 @@ use strum_macros::{Display, EnumString};
 /// # use rtrend::Country;
 /// let country = Country::FR;
 /// ```
-#[derive(PartialEq, Display, Debug, EnumString, Clone)]
+#[derive(Eq, PartialEq, Display, Debug, EnumString, Clone)]
 pub enum Country {
     #[strum(serialize = "")]
     ALL,
