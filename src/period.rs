@@ -2,7 +2,7 @@
 //!
 //! All period available [here](https://github.com/shadawck/rust-trend/wiki/period)
 
-use strum_macros::{EnumString, ToString};
+use strum_macros::{Display, EnumString};
 
 /// Create a predefined Period.
 ///
@@ -13,7 +13,7 @@ use strum_macros::{EnumString, ToString};
 /// # use rtrend::Period;
 /// let lang = Period::OneDay;
 /// ```
-#[derive(Eq, PartialEq, Debug, EnumString, Clone, ToString)]
+#[derive(Eq, PartialEq, Debug, EnumString, Clone, Display)]
 pub enum Period {
     #[strum(serialize = "now 1-H")]
     OneHour,

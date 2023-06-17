@@ -1,7 +1,7 @@
 //! Client used to initialize everything needed by the Google Trend API.
 
 use crate::{utils, Category, Cookie, Country, Keywords, Lang, Period, Property};
-use chrono::{Date, Utc};
+use chrono::NaiveDate;
 use reqwest::{blocking::ClientBuilder, header, Url};
 use serde_json::Value;
 use std::string::ToString;
@@ -219,13 +219,13 @@ impl Client {
     /// let country = Country::ALL;
     ///
     /// // response will concern data from April 25, 2020 to July 30, 2021
-    /// let start_date: Date<Utc> = Utc.ymd(2017, 4, 25);
-    /// let end_date: Date<Utc> = Utc.ymd(2020, 7, 30);
+    /// let start_date: NaiveDate = NaiveDate::from_ymd_opt(2017, 4, 25).unwrap();
+    /// let end_date: NaiveDate = NaiveDate::from_ymd_opt(2020, 7, 30).unwrap();
     ///
     /// let client = Client::new(keywords, country).with_date(start_date, end_date);
     /// ```
-    pub fn with_date(mut self, start_date: Date<Utc>, end_date: Date<Utc>) -> Self {
-        fn convert(date: Date<Utc>) -> String {
+    pub fn with_date(mut self, start_date: NaiveDate, end_date: NaiveDate) -> Self {
+        fn convert(date: NaiveDate) -> String {
             date.format("%Y-%m-%d").to_string()
         }
 
