@@ -31,7 +31,6 @@ impl RegionInterest {
     ///
     /// Returns a `RegionInterest` instance
     pub fn new(client: Client) -> Self {
-
         let res = if client.country.eq(&Country::ALL) {
             "COUNTRY"
         } else {
@@ -178,8 +177,6 @@ impl RegionInterest {
             None => Err(KeywordNotSet).unwrap(),
         };
 
-        let response_index = keyword_index + 1;
-
-        self.send_request()[response_index].clone()
+        self.send_request()[keyword_index].clone()
     }
 }
